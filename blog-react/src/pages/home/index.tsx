@@ -111,7 +111,7 @@ const index = () => {
             <section className="news-card">
             <Row justify="space-around">
                 {/* 新闻 */}
-                <Col flex={2} style={{background: '#fff', display: 'flex', flexDirection: 'row'}}>
+                <Col flex={2} style={{background: 'rgba(251,251,251,0.8)', display: 'flex', flexDirection: 'row', borderRadius: '10px'}}>
                     <Carousel style={{width: '350px', height: '240px', padding: '20px 10px'}} autoplay>
                         {img.map((item, i) => {
                             return (

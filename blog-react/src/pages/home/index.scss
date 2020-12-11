@@ -45,7 +45,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0.4);
         z-index: 8;
     }
 }
@@ -53,9 +53,10 @@
 .news-card {
     padding: 25px 40px;
     .call-card {
+        border-radius: 10px;
         padding: 20px 50px;
         // background-color: #001529;
-        background-color: #ffffff;
+        background-color: rgba(251,251,251,0.8);
         width: 100%;
         height: 100%;
         list-style: none;
@@ -90,7 +91,7 @@
                 transform: translateY(-20px);
             }
             .mask {
-                background: rgba(0, 0, 0, 0.6);
+                background: rgba(0, 0, 0, 0.8);
             }
             .nav-title {
                 opacity: 0;

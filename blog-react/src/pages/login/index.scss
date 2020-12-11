@@ -1,0 +1,13 @@
+.form-wrapper {
+    position: relative;
+    width: 500px;
+    min-width: 500px;
+    max-width: 100%;
+    height: 485px;
+    padding: 50px;
+    margin: 0 230px auto auto;
+    overflow: hidden;
+    z-index: 1000;
+    -webkit-box-shadow: 0 0 1px 1px #00b8ff inset;
+    box-shadow: inset 0 0 1px 1px #00b8ff;
+}

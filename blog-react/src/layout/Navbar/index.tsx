@@ -4,7 +4,6 @@ const { Header, Content, Footer } = Layout;
 import { HomeOutlined, UnorderedListOutlined, PlayCircleOutlined, CalendarOutlined, LinkOutlined, FieldTimeOutlined, DingtalkOutlined, LoginOutlined, UserAddOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'umi'
 import './index.scss'
-import url from '*.svg';
 
 const index = (props: { children: React.ReactNode }) => {
     const { location } = useHistory()
