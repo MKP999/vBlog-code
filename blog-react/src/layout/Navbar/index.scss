@@ -1,0 +1,49 @@
+
+  .layout {
+    height: 100%;
+    :global {
+      .site-layout-background {
+        background: #fff;
+      }
+      .ant-layout-header {
+        padding-left: 20px!important;
+      }
+    }
+    
+    .ant-layout-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .navigation {
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+        }
+    }
+    .logo {
+        color: #fff;
+        font-size: 28px;
+        font-weight: 600;
+        margin-right: 20px;
+    }
+
+    .user-operation {
+        .ant-menu-dark.ant-menu-horizontal {
+           & >.ant-menu-item:hover {
+            background-color: transparent!important;   
+            } 
+        }
+    }
+    .ant-layout-content {
+        background: url(../../public//images/bg-2.png);
+        background-repeat: repeat;
+        background-attachment: fixed;
+        padding: 0;
+    }
+
+    .ant-layout-footer {
+        height: 50px;
+        line-height: 0px;
+     }
+  }
+  

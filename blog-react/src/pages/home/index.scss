@@ -1,0 +1,175 @@
+@keyframes bgAnimate { 
+    0% {background-size: 100% 100%;} 
+    50% {background-size: 120% 120%;} 
+    100% {background-size: 100% 100%;} 
+  }
+  @-webkit-keyframes bgAnimate { 
+    0% {background-size: 100% 100%;} 
+    50% {background-size: 120% 120%;} 
+    100% {background-size: 100% 100%;} 
+  }
+  @-moz-keyframes bgAnimate { 
+    0% {background-size: 100% 100%;} 
+    50% {background-size: 120% 120%;} 
+    100% {background-size: 100% 100%;} 
+  }
+  @-o-keyframes bgAnimate { 
+    0% {background-size: 100% 100%;} 
+    50% {background-size: 120% 120%;} 
+    100% {background-size: 100% 100%;} 
+  }
+
+.center {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    background-image: url(../../public/images/compute.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: bgAnimate 20s linear infinite alternate;
+    -webkit-animation: bgAnimate 20s linear infinite alternate;
+    .title {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 50px;
+        font-weight: bold;
+        color: #ffffff;
+        z-index: 9;
+    }
+    .mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.2);
+        z-index: 8;
+    }
+}
+
+.news-card {
+    padding: 25px 40px;
+    .call-card {
+        padding: 20px 50px;
+        // background-color: #001529;
+        background-color: #ffffff;
+        width: 100%;
+        height: 100%;
+        list-style: none;
+        color: #333333;
+        font-size: 16px;
+        font-weight: bold;
+        .avatar {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        li {
+            line-height: 2rem;
+
+        }
+    }
+    .ant-list-item {
+        padding: 10px 0;
+    }
+}
+
+.nav-type {
+    padding: 25px 0px;
+    .type-box {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        padding: 100px 0;
+        transition: all 0.5s;
+        &:hover {
+            .enter-btn {
+                opacity: 1;
+                transform: translateY(-20px);
+            }
+            .mask {
+                background: rgba(0, 0, 0, 0.6);
+            }
+            .nav-title {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+        .mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            opacity: 1;
+        }
+        .nav-title {
+            position: relative;
+            text-align: center;
+            opacity: 1;
+            transition: all 0.5s;
+            z-index: 9;
+            span{
+                color: #ffffff;
+                font-weight: bold;
+                font-size: 35px;
+            }
+            .english {
+                color: #ffffff;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 0.5rem;
+            }
+            p{
+                color: #d8d8d8;
+                font-size: 18px;
+                margin-top: 25px;
+            }
+        }
+        .enter-btn {
+            position: relative;
+            width: 50%;
+            margin: -40px auto;
+            padding: 10px 15px;
+            border: 2px solid #ffffff;
+            background: #000000;
+            font-size: 18px;
+            font-weight: bold;
+            opacity: 0;
+            z-index: 10;
+            transition: all 0.5s;
+            text-align: center;
+            cursor: pointer;
+            a {
+                color: #ffffff;
+            }
+            &:hover {
+                background: #ffffff;
+                a {
+                    color: #000000!important;
+                }
+            }
+            span {}
+        }
+    }
+}
+
+
+  .demo-loadmore-list {
+    min-height: 350px;
+  }
+
+  .back-up {
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    border-radius: 5px;
+    background-color: #1088e9;
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+  }
