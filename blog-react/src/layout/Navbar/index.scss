@@ -46,5 +46,13 @@
         height: 50px;
         line-height: 0px;
      }
-  }
+
+    }
+    .ant-menu.ant-menu-dark .ant-menu-item-selected {
+      background-color: transparent!important;
+    }
+
+    .ant-menu-dark.ant-menu-horizontal > .ant-menu-item:hover {
+      background-color: transparent!important;
+    }
   

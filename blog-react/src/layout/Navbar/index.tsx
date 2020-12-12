@@ -40,7 +40,7 @@ const index = (props: { children: React.ReactNode }) => {
                     </Menu>
                 </div>
                 <div className="user-operation">
-                    <Menu theme="dark" mode="horizontal" selectedKeys={['']}>
+                    <Menu theme="dark" mode="horizontal" selectedKeys={[location.pathname]}>
                         <Menu.Item key="/login" icon={<LoginOutlined />}>
                             <Link to='/login' >登录</Link>
                         </Menu.Item>

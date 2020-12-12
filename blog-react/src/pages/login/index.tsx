@@ -1,60 +1,60 @@
 import React from 'react'
 import { Form, Input, Button, Checkbox } from 'antd'
+import { UserOutlined, LockOutlined, LoginOutlined } from '@ant-design/icons';
+import FormWrapper from "../../components/FormWrapper";
+import { Link } from "umi";
+import './index.scss'
 
 const index = () => {
-    const layout = {
-        labelCol: { span: 8 },
-        wrapperCol: { span: 16 },
-    };
-    const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
-    };
       
     const onFinish = (values: any) => {
         console.log('Success:', values);
-    };
-    
-    const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
-    };
+    }
 
     return (
         <div style={{height: 'calc(100vh - 114px)'}}>
-            <div className="form-wrapper">
+            <FormWrapper>
+                <div className="login-title">
+                    <LoginOutlined /> 登录
+                </div>
                 <Form
-                    {...layout}
-                    name="basic"
+                    name="normal_login"
+                    className="login-form"
                     initialValues={{ remember: true }}
                     onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
                     >
                     <Form.Item
-                        label="Username"
-                        name="username"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
+                        name="eamil"
+                        rules={[{ required: true, message: '请输入有邮箱！' }]}
                     >
-                        <Input />
+                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="邮箱" />
                     </Form.Item>
-
                     <Form.Item
-                        label="Password"
                         name="password"
-                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        rules={[{ required: true, message: '请输入有密码！' }]}
                     >
-                        <Input.Password />
+                        <Input
+                        prefix={<LockOutlined className="site-form-item-icon" />}
+                        type="password"
+                        placeholder="密码"
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Form.Item name="remember" valuePropName="checked" noStyle>
+                        <Checkbox>记住我</Checkbox>
+                        </Form.Item>
+
+                        <Link to='/' className="login-form-forgot" >忘记密码？</Link>
                     </Form.Item>
 
-                    <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-                        <Checkbox>Remember me</Checkbox>
-                    </Form.Item>
-
-                    <Form.Item {...tailLayout}>
-                        <Button type="primary" htmlType="submit">
-                        Submit
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit" className="login-form-button">
+                        登录
                         </Button>
+                        <div className="to-register"> 没有账号？ <Link to="/register">马上注册！</Link></div>
                     </Form.Item>
                 </Form>
-            </div>
+            </FormWrapper>
         </div>
     )
 }

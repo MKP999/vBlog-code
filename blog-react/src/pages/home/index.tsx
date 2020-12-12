@@ -3,7 +3,7 @@ import { Row, Col, Carousel, List, Avatar, Pagination, Image, BackTop } from 'an
 import { UserOutlined, UpCircleOutlined } from '@ant-design/icons';
 import { Link } from 'umi'
 import './index.scss'
-import blogBg from '../../public/images/blog.png'
+import blogBg from '../../public/images/compute.png'
 import productionBg from '../../public/images/production.png'
 import messageBg from '../../public/images/message.png'
 import linkBg from '../../public/images/link.png'
