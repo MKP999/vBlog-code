@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Row, Col, Carousel, List, Avatar, Pagination, Image, BackTop } from 'antd';
 import { UserOutlined, UpCircleOutlined } from '@ant-design/icons';
 import { Link } from 'umi'
@@ -11,6 +11,24 @@ import timelineBg from '../../public/images/timeline.png'
 import jokeBg from '../../public/images/joke.png'
 
 const index = () => {
+    const content = '一名依靠毒鸡汤, 每天激情热血的程序员'
+    const [title, setTitle ] = useState('')
+
+    useEffect(() => {
+        const contentArr = content.split('')
+        let titleSplit = ''
+        let i = 0
+        const timer = setInterval(() => {
+            titleSplit += contentArr[i]
+            setTitle(titleSplit + '_')
+            i++
+            if (i === contentArr.length) {
+                setTitle(titleSplit)
+                clearInterval(timer)
+            }
+        }, 250)
+    }, [])
+
     const typeInfo = [
         [
             {   
@@ -102,7 +120,7 @@ const index = () => {
         <div>
             {/* 中心图片 */}
             <div className="center">
-                <div className="title">Welcome !!! <br/> </div>
+                <div className="title">{title}<br/> </div>
                 <div className="mask"></div>
                 {/* <img style={{width: '100%', height: '500px'}} src={background} alt=""/> */}
             </div>
@@ -194,7 +212,7 @@ const index = () => {
                 
             {/* 回到顶部 */}
             <BackTop>
-                <div className="back-up"><UpCircleOutlined style={{ fontSize: '18px' }}/></div>
+                <div className="back-up"><UpCircleOutlined style={{ fontSize: '30px' }}/></div>
             </BackTop>
         </div>
     )

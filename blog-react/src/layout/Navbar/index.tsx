@@ -10,6 +10,7 @@ const index = (props: { children: React.ReactNode }) => {
     console.log('location => ', location)
     return (
         <Layout className="layout">
+            <div className="header-replace"></div>
             <Header>
                 <div className="navigation">
                     <div className="logo">

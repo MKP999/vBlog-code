@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Input, Button, Checkbox } from 'antd'
-import { UserOutlined, LockOutlined, LoginOutlined } from '@ant-design/icons';
+import { MailOutlined, LockOutlined, LoginOutlined } from '@ant-design/icons';
 import FormWrapper from "../../components/FormWrapper";
 import { Link } from "umi";
 import './index.scss'
@@ -27,13 +27,13 @@ const index = () => {
                         name="eamil"
                         rules={[{ required: true, message: '请输入有邮箱！' }]}
                     >
-                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="邮箱" />
+                        <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="邮箱" />
                     </Form.Item>
                     <Form.Item
                         name="password"
                         rules={[{ required: true, message: '请输入有密码！' }]}
                     >
-                        <Input
+                        <Input.Password
                         prefix={<LockOutlined className="site-form-item-icon" />}
                         type="password"
                         placeholder="密码"
