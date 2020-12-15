@@ -14,6 +14,10 @@ const MessageSchema = new Schema({
         type: String,
         require: true
     },
+    avatar: {
+        type: String,
+        require: true,
+    },
     date: {
         type: Date,
         default: Date.now

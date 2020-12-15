@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col, Carousel, List, Avatar, Pagination, Image, BackTop } from 'antd';
-import { UserOutlined, UpCircleOutlined } from '@ant-design/icons';
+import { UpCircleOutlined } from '@ant-design/icons';
 import { Link } from 'umi'
 import './index.scss'
+import avatar from "../../public/images/zp.png";
 import blogBg from '../../public/images/compute.png'
 import productionBg from '../../public/images/production.png'
 import messageBg from '../../public/images/message.png'
@@ -171,13 +172,27 @@ const index = () => {
                 {/* 个人名片 */}
                 <Col flex={1}>
                     <ul className="call-card">
-                        <li className="avatar">
-                            <Avatar size={64} icon={<UserOutlined />} />
-                        </li>
-                        <li>职业： </li>
-                        <li>现居： </li>
-                        <li>邮箱： </li>
-                        <li>微信： </li>
+                        <div className="avatar">
+                            <Avatar size={64} src={avatar} style={{marginBottom: '15px', border: '1px solid #eee'}} />
+                        </div>
+                        <table align="center">
+                            <tr>
+                                <td>职业：</td>
+                                <td>某小企前端工程师</td>
+                            </tr>
+                            <tr>
+                                <td>现居：</td>
+                                <td>广东省广州市</td>
+                            </tr>
+                            <tr>
+                                <td>邮箱：</td>
+                                <td>993646298@qq.com</td>
+                            </tr>
+                            <tr>
+                                <td>微信：</td>
+                                <td>17620004641</td>
+                            </tr>
+                        </table>
                     </ul>
                 </Col>
             </Row>

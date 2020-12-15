@@ -8,6 +8,10 @@ import './index.scss'
 const index = (props: { children: React.ReactNode }) => {
     const { location } = useHistory()
     console.log('location => ', location)
+    // 匹配路径
+    // const matchUrl = (url) => {
+    //     const 
+    // }
     return (
         <Layout className="layout">
             <div className="header-replace"></div>
@@ -20,8 +24,8 @@ const index = (props: { children: React.ReactNode }) => {
                         <Menu.Item key="/home" icon={<HomeOutlined />}>
                             <Link to='/home' >首页</Link>
                         </Menu.Item>
-                        <Menu.Item key="/blog" icon={<UnorderedListOutlined />}>
-                            <Link to='/blog' >博客</Link>
+                        <Menu.Item key="/blog/list" icon={<UnorderedListOutlined />}>
+                            <Link to='/blog/list' >博客</Link>
                         </Menu.Item>
                         <Menu.Item key="/production" icon={<PlayCircleOutlined />}>
                             <Link to='/production' >作品</Link>

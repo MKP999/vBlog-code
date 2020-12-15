@@ -56,11 +56,13 @@ const config = require('./config/config')
 const user = require('./routes/user')
 const article = require('./routes/article')
 const message = require('./routes/message')
+const entertainment = require('./routes/entertainment')
 
 // 配置路由根路径
 router.use('/api/users', user)
 router.use('/api/articles', article)
 router.use('/api/messages', message)
+router.use('/api/entertainment', entertainment)
 
 // 配置路由
 app.use(router.routes()).use(router.allowedMethods());

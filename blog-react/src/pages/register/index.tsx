@@ -30,8 +30,17 @@ const index = () => {
                         <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="用户名(3~12位)" />
                     </Form.Item>
                     <Form.Item
-                        name="eamil"
-                        rules={[{ required: true, message: '请输入邮箱！' }]}
+                        name="email"
+                        rules={[
+                            {
+                              type: 'email',
+                              message: '请输入正确的邮箱',
+                            },
+                            {
+                              required: true,
+                              message: '请输入邮箱地址',
+                            },
+                          ]}
                     >
                         <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="邮箱" />
                     </Form.Item>

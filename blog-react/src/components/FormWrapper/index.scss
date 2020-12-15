@@ -16,3 +16,10 @@
     align-items: center;
     box-shadow: 10px 10px 20px;
 }
+
+.ant-checkbox-checked {
+  .ant-checkbox-inner {
+    background-color: #001529;
+    border-color: #001529;
+  }
+}

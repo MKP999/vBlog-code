@@ -1,0 +1,62 @@
+.title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.comment-wrapper {
+    padding: 10px;
+    color: #ffffff;
+    .message {
+        border-radius: 5px;
+        padding: 15px 15px 5px;
+        margin: 10px 0;
+        // background: #001529;
+        // opacity: 0.8;
+        background: rgba(0, 0, 0, 0.8);
+        .publish {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            position: relative;
+            .context {
+                display: flex;
+                flex-direction: row;
+            }
+            .reply {
+                position: absolute;
+                bottom: 15px;
+                right: 15px;
+                cursor: pointer;
+                font-size: 20px;
+                &:hover {
+                    opacity: 0.5;
+                }
+            }
+        }
+        .comment {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            position: relative;
+            margin-left: 50px;
+            border: 1px dotted #cccccc;
+            border-radius: 5px;
+            padding: 10px 10px 0;
+            margin-bottom: 5px;
+            .context {
+                display: flex;
+                flex-direction: row;
+            }
+        }
+    }
+}
+
+.ant-avatar-image {
+    margin-right: 15px;
+}
+
+.ant-divider {
+    border-top: 1px solid rgba(251, 251, 251, 0.3);
+}

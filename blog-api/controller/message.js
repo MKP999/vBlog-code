@@ -16,6 +16,7 @@ exports.Test = async ctx => {
  * @access 接口是公开的
  */
 exports.GetMessages = async ctx => {
+    console.log(new Date().getTime())
     ctx.body = ctx.advancedResults
 }
 
@@ -41,10 +42,14 @@ exports.CreateMessage = async ctx => {
     }
     if (body.email) {
         messageInfo.email = body.email
+        const qq = body.email.slice(0, -7)
+        messageInfo.avatar = `http://q1.qlogo.cn/g?b=qq&nk=${qq}&s=100`
     }
+
     if (body.content) {
         messageInfo.content = body.content
     }
+    messageInfo.date = new Date().getTime()
 
     // 存储
     const message = await new Message(messageInfo)

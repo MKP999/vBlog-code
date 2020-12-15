@@ -24,14 +24,23 @@ const index = () => {
                     onFinish={onFinish}
                     >
                     <Form.Item
-                        name="eamil"
-                        rules={[{ required: true, message: '请输入有邮箱！' }]}
+                        name="email"
+                        rules={[
+                            {
+                              type: 'email',
+                              message: '请输入正确的邮箱',
+                            },
+                            {
+                              required: true,
+                              message: '请输入邮箱地址',
+                            },
+                          ]}
                     >
                         <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="邮箱" />
                     </Form.Item>
                     <Form.Item
                         name="password"
-                        rules={[{ required: true, message: '请输入有密码！' }]}
+                        rules={[{ required: true, message: '请输入密码！' }]}
                     >
                         <Input.Password
                         prefix={<LockOutlined className="site-form-item-icon" />}

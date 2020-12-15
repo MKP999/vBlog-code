@@ -1,0 +1,10 @@
+.message-wrapper {
+    padding: 15px 20px 10px;
+    // background: #001529;
+    background: rgba(0, 0, 0, 0.8);
+    .actived {
+        border-radius: 50%;
+        border: 3px solid rgba(251,251,251,0.8);
+        box-sizing: content-box;
+    }
+}
