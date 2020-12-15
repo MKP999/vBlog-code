@@ -12,7 +12,7 @@ const index = () => {
                     "name": "111",
                     "email": "111@qq.com",
                     "avatar": "http://q1.qlogo.cn/g?b=qq&nk=739237564&s=100",
-                    "content": "设计费韩发叫法是快捷发布寄回去外交部福建空气爱别人凤凰居全国千方百计卡刷包罚款卷社区发表接口全部放假看不起谁",
+                    "content": "设计费韩发叫法是~~快捷发布寄回去外交部福!!!建空气爱别人凤凰居全国千方百计卡刷包罚款卷社区发表接口全部放假看不起谁",
                     "date": "2020-12-15T03:44:29.051Z",
                     "reply": false,
                     "comment": [
@@ -155,7 +155,7 @@ const index = () => {
                                             <Avatar size="large" src={item.avatar} />
                                             <div className="text">
                                                 <span><b style={{fontSize: '18px'}}>{item.name}</b></span>
-                                                <p style={{color: '#ccc', paddingRight: '200px'}}>{item.content}</p>
+                                                <p style={{color: '#ccc', paddingRight: '200px', fontSize: '16px', letterSpacing: '0.05em'}}>{item.content}</p>
                                             </div>
                                         </div>
                                         <span style={{color: '#848484'}}>{item.date}</span>
@@ -179,7 +179,7 @@ const index = () => {
                                                     <Avatar size="large" src={child.avatar}  />
                                                     <div className="text">
                                                         <span><b>{child.name}</b></span>
-                                                        <p style={{color: '#ccc', paddingRight: '200px'}}>{child.content}</p>
+                                                        <p style={{color: '#ccc', paddingRight: '200px', fontSize: '16px', letterSpacing: '0.05em'}}>{child.content}</p>
                                                     </div>
                                                 </div>
                                                 <span style={{color: '#848484'}}>{child.date}</span>
