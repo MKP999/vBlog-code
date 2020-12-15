@@ -152,7 +152,7 @@ const index = () => {
                                 <div key={item._id} className="message">
                                     <div className="publish">
                                         <div className="context">
-                                            <Avatar size="large" src={item.avatar} />
+                                            <Avatar size={50} src={item.avatar} />
                                             <div className="text">
                                                 <span><b style={{fontSize: '18px'}}>{item.name}</b></span>
                                                 <p style={{color: '#ccc', paddingRight: '200px', fontSize: '16px', letterSpacing: '0.05em'}}>{item.content}</p>
@@ -176,9 +176,9 @@ const index = () => {
                                         return (
                                             <div key={child._id} className="comment">
                                                 <div className="context">
-                                                    <Avatar size="large" src={child.avatar}  />
+                                                    <Avatar size={50} src={child.avatar}  />
                                                     <div className="text">
-                                                        <span><b>{child.name}</b></span>
+                                                        <span><b style={{fontSize: '18px'}}>{child.name}</b></span>
                                                         <p style={{color: '#ccc', paddingRight: '200px', fontSize: '16px', letterSpacing: '0.05em'}}>{child.content}</p>
                                                     </div>
                                                 </div>
