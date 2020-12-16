@@ -1,12 +1,26 @@
 import React from 'react'
-import { Layout, Menu, Space, Button } from 'antd';
+import { Layout, Menu, Button, Dropdown } from 'antd';
 const { Header, Content, Footer } = Layout;
-import { HomeOutlined, UnorderedListOutlined, PlayCircleOutlined, CalendarOutlined, LinkOutlined, FieldTimeOutlined, DingtalkOutlined, LoginOutlined, UserAddOutlined } from '@ant-design/icons';
+import { HomeOutlined, UnorderedListOutlined, PlayCircleOutlined, CalendarOutlined, LinkOutlined, FieldTimeOutlined, DingtalkOutlined, LoginOutlined, UserAddOutlined, UserOutlined, DownOutlined, LogoutOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'umi'
 import './index.scss'
 
 const index = (props: { children: React.ReactNode }) => {
     const { location } = useHistory()
+
+    // 获取用户信息
+    const blog_Info = localStorage.getItem('blog_Info')
+    const name = blog_Info ? JSON.parse(blog_Info).username : ''
+
+    const blogLogin = localStorage.getItem('blog_login')
+    // 点击出现退出登录
+    const menu = (
+        <Menu>
+          <Menu.Item>
+            <Button><LogoutOutlined /> 退出登录</Button>
+          </Menu.Item>
+        </Menu>
+      )
     console.log('location => ', location)
     // 匹配路径
     // const matchUrl = (url) => {
@@ -46,12 +60,20 @@ const index = (props: { children: React.ReactNode }) => {
                 </div>
                 <div className="user-operation">
                     <Menu theme="dark" mode="horizontal" selectedKeys={[location.pathname]}>
-                        <Menu.Item key="/login" icon={<LoginOutlined />}>
-                            <Link to='/login' >登录</Link>
-                        </Menu.Item>
-                        <Menu.Item key="/register" icon={<UserAddOutlined />}>
-                            <Link to='/register' >注册</Link>
-                        </Menu.Item>
+                        {blogLogin ? (
+                            <Dropdown overlay={menu} placement="bottomCenter" arrow trigger={['click']}>
+                                <span style={{cursor: 'pointer'}}><UserOutlined /> {name} <DownOutlined style={{fontSize: '10px'}} /></span>
+                          </Dropdown>
+                        ) : (
+                            <>
+                                <Menu.Item key="/login" icon={<LoginOutlined />}>
+                                    <Link to='/login' >登录</Link>
+                                </Menu.Item>
+                                <Menu.Item key="/register" icon={<UserAddOutlined />}>
+                                    <Link to='/register' >注册</Link>
+                                </Menu.Item>
+                            </>
+                        )}
                     </Menu>
                 </div>
 

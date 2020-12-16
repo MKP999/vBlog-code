@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Divider, List, Avatar, Row, Col, BackTop } from "antd";
+import { Divider, Row, Col, BackTop, Pagination } from "antd";
 import { MessageOutlined, UpCircleOutlined } from '@ant-design/icons';
 import MessageForm from "../../components/MessageForm";
 import './index.scss'
@@ -144,7 +144,7 @@ const index = () => {
             <Row>
                 <Col span={16} offset={4} style={{borderRadius: '10px' }}>
                 {/* 评论区 */}
-                <Divider style={{color: '#fff', borderColor: '#fff'}}><b>评论</b></Divider>
+                <Divider style={{color: '#fff', borderColor: '#fff', fontSize: '18px'}}>评论</Divider>
                 <div className="comment-wrapper">
                         {message.map(item => {
                             return (
@@ -152,10 +152,10 @@ const index = () => {
                                 <div key={item._id} className="message">
                                     <div className="publish">
                                         <div className="context">
-                                            <Avatar size={50} src={item.avatar} />
+                                            <img src={item.avatar} alt="" className="avatar-img" />
                                             <div className="text">
                                                 <span><b style={{fontSize: '18px'}}>{item.name}</b></span>
-                                                <p style={{color: '#ccc', paddingRight: '200px', fontSize: '16px', letterSpacing: '0.05em'}}>{item.content}</p>
+                                                <p style={{color: '#ccc', paddingRight: '200px', fontSize: '16px'}}>{item.content}</p>
                                             </div>
                                         </div>
                                         <span style={{color: '#848484'}}>{item.date}</span>
@@ -176,10 +176,10 @@ const index = () => {
                                         return (
                                             <div key={child._id} className="comment">
                                                 <div className="context">
-                                                    <Avatar size={50} src={child.avatar}  />
+                                                    <img src={child.avatar} alt="" className="avatar-img" />
                                                     <div className="text">
                                                         <span><b style={{fontSize: '18px'}}>{child.name}</b></span>
-                                                        <p style={{color: '#ccc', paddingRight: '200px', fontSize: '16px', letterSpacing: '0.05em'}}>{child.content}</p>
+                                                        <p style={{color: '#ccc', paddingRight: '200px', fontSize: '16px'}}>{child.content}</p>
                                                     </div>
                                                 </div>
                                                 <span style={{color: '#848484'}}>{child.date}</span>
@@ -189,9 +189,12 @@ const index = () => {
                                 </div>
                             )
                         })}
+                    <div className="paging">
+                        <Pagination defaultCurrent={1} total={100} showSizeChanger={false} />
+                    </div>
                 </div>
                 {/* 留言区 */}
-                <Divider style={{color: '#fff', borderColor: '#fff'}}><b>留言</b></Divider>
+                <Divider style={{color: '#fff', borderColor: '#fff', fontSize: '18px'}}>留言</Divider>
                  {/* 留言表单 */}
                  <MessageForm />
                 </Col>

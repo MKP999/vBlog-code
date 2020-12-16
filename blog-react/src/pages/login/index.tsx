@@ -1,16 +1,41 @@
 import React from 'react'
-import { Form, Input, Button, Checkbox } from 'antd'
+import { Form, Input, Button, Checkbox, message } from 'antd'
 import { MailOutlined, LockOutlined, LoginOutlined } from '@ant-design/icons';
 import FormWrapper from "../../components/FormWrapper";
-import { Link } from "umi";
+import { Link, history } from "umi";
 import './index.scss'
+
+import { login, getInfo } from "../../server/homeApi";
 
 const index = () => {
       
+    // 提交表单
     const onFinish = (values: any) => {
         console.log('Success:', values);
+        login(values).then((res: {data: {success: Boolean, msg: string, token: string}}) => {
+            console.log(res.data)
+            if (res.data.success) {
+                message.success('登录成功')
+                localStorage.setItem('blog_login', res.data.token)
+                getUserInfo()
+            } else {
+                message.error(res.data.msg);
+            }
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
+    // 获取当前用户信息
+    const getUserInfo = async () => {
+        try {
+            const res = await getInfo()
+            localStorage.setItem('blog_Info', JSON.stringify(res.data.data))
+            history.push('/home')
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <div style={{height: 'calc(100vh - 114px)'}}>
             <FormWrapper>

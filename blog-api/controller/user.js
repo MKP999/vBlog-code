@@ -106,11 +106,11 @@ exports.Login = async ctx => {
             // 客户端 cookies缓存token
             ctx.cookies.set('token', 'Bearer ' + token)
         } else {
-            ctx.status = 404
+            ctx.status = 200
             ctx.body = { success: false, msg: '密码错误'}
         }
     } else {
-        ctx.status = 404
+        ctx.status = 200
         ctx.body = { success: false, msg: '用户不存在, 请先注册'}
     }
 }

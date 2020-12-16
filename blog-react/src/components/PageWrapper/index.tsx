@@ -9,7 +9,7 @@ const index = (props: {children: React.ReactNode}) => {
         <>
           <div className="work-wrapper">
             <Row>
-                <Col span={16} offset={4} style={{background:'#001529', borderRadius: '10px' }}>
+                <Col span={16} offset={4} style={{background:'rgba(0,0,0,0.6)', borderRadius: '10px' }}>
                   {props.children}
                 </Col>
             </Row>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, Card } from 'antd'
+import { Row, Col, Card, Divider } from 'antd'
 import './index.scss'
 import PageWrapper from "../../components/PageWrapper"
 import bollUrl from '../../public/images/canvasBoll.png'
@@ -60,7 +60,8 @@ const index = () => {
     return (
         <div>
             <PageWrapper>
-                    <h1 className="title">作品</h1>
+                    <Divider style={{color: '#fff', borderColor: '#fff', fontSize: '18px'}}>作品</Divider>
+
                      <Row gutter={30} style={{padding: '0 30px'}}>
                      {data.map(item => {
                             return (

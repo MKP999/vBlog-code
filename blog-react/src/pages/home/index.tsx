@@ -11,9 +11,13 @@ import linkBg from '../../public/images/link.png'
 import timelineBg from '../../public/images/timeline.png'
 import jokeBg from '../../public/images/joke.png'
 
+import { getNewsList } from "../../server/homeApi";
+
 const index = () => {
+    const [ news, setNews ] = useState([])
     const content = '一名依靠毒鸡汤, 每天激情热血的程序员'
     const [title, setTitle ] = useState('')
+    const [ page, setPage ] = useState(1)
 
     useEffect(() => {
         const contentArr = content.split('')
@@ -28,7 +32,17 @@ const index = () => {
                 clearInterval(timer)
             }
         }, 250)
+        return (() => clearInterval(timer))
     }, [])
+
+    useEffect(() => {
+        const params = {page, count: 5}
+        getNewsList(params).then((res: {data: {data: {result: []}}}) => {
+            setNews(res.data.data.result)
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [page])
 
     const typeInfo = [
         [
@@ -86,36 +100,10 @@ const index = () => {
         
     ]
 
-    const data = [
-        {
-            "title": "首日开盘市值突破1000亿：泡泡玛特凭什么吸引95后",
-            "passtime": "2020-12-11 10:00:45"
-          },
-          {
-            "title": "狂降至3折！孙正义60亿元贱卖波士顿动力 韩企接盘",
-            "passtime": "2020-12-11 10:00:45"
-          },
-          {
-            "title": "抗美援朝前夕林彪突然病倒 聂荣臻:从没见他这么怕过",
-            "passtime": "2020-12-11 10:00:45"
-          },
-          {
-            "title": "他扳倒两任总统 一夜间自己成下届总统最热门人选",
-            "passtime": "2020-12-11 10:00:45"
-          },
-          {
-            "title": "印度专家谈中国人不想生:别担心,说明中国人变富了!",
-            "passtime": "2020-12-11 10:00:45"
-          }
-    ]
+    const pageChange = (page: number) => {
+        setPage(page)
+    }
 
-    const img = [
-        {imgUrl: 'http://cms-bucket.ws.126.net/2020/1210/5206ca10j00ql3nuq003uc000s600e3c.jpg?imageView&thumbnail=140y88&quality=85'},
-        {imgUrl: 'http://cms-bucket.ws.126.net/2020/1210/21bd7f97p00ql3kfl002vc0009c0070c.png?imageView&thumbnail=140y88&quality=85'},
-        {imgUrl: 'http://cms-bucket.ws.126.net/2020/1210/5206ca10j00ql3nuq003uc000s600e3c.jpg?imageView&thumbnail=140y88&quality=85'},
-        {imgUrl: 'http://cms-bucket.ws.126.net/2020/1210/21bd7f97p00ql3kfl002vc0009c0070c.png?imageView&thumbnail=140y88&quality=85'},
-        {imgUrl: 'http://cms-bucket.ws.126.net/2020/1210/5206ca10j00ql3nuq003uc000s600e3c.jpg?imageView&thumbnail=140y88&quality=85'}
-    ]
 
     return (
         <div>
@@ -132,17 +120,16 @@ const index = () => {
                 {/* 新闻 */}
                 <Col flex={2} style={{background: 'rgba(251,251,251,0.8)', display: 'flex', flexDirection: 'row', borderRadius: '10px'}}>
                     <Carousel style={{width: '350px', height: '240px', padding: '20px 10px'}} autoplay>
-                        {img.map((item, i) => {
+                        {news.map((item, i) => {
                             return (
-                                <div>
-                                    {/* <img style={{width: '100%', height: '100%'}} key={i} src={item.imgUrl} alt=""/> */}
+                                <div key={i}>
                                     <Image
                                         width={350}
                                         height={210}
-                                        src={item.imgUrl}
+                                        src={item.image}
                                         placeholder={
                                         <Image
-                                            src={item.imgUrl}
+                                            src={item.image}
                                             width={350}
                                             height={210}
                                         />
@@ -156,7 +143,7 @@ const index = () => {
                     <List
                         style={{flex: 1, padding: '10px 15px'}}
                         itemLayout="horizontal"
-                        dataSource={data}
+                        dataSource={news}
                         renderItem={item => (
                         <List.Item>
                             <List.Item.Meta
@@ -166,7 +153,8 @@ const index = () => {
                         </List.Item>
                         )}
                     />
-                    <Pagination style={{position: 'absolute', bottom: '5px', left: '50%', transform: 'translateX(-50%)'}} size="small" total={50} />
+                    <Pagination  current={page} onChange={(page) => pageChange(page)} 
+                    style={{position: 'absolute', bottom: '5px', left: '50%', transform: 'translateX(-50%)'}} size="small" total={100} showSizeChanger={false} />
                 </Col>
                 <Col flex="20px" />
                 {/* 个人名片 */}
@@ -176,22 +164,24 @@ const index = () => {
                             <Avatar size={64} src={avatar} style={{marginBottom: '15px', border: '1px solid #eee'}} />
                         </div>
                         <table align="center">
-                            <tr>
-                                <td>职业：</td>
-                                <td>某小企前端工程师</td>
-                            </tr>
-                            <tr>
-                                <td>现居：</td>
-                                <td>广东省广州市</td>
-                            </tr>
-                            <tr>
-                                <td>邮箱：</td>
-                                <td>993646298@qq.com</td>
-                            </tr>
-                            <tr>
-                                <td>微信：</td>
-                                <td>17620004641</td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td>职业：</td>
+                                    <td>某小企前端工程师</td>
+                                </tr>
+                                <tr>
+                                    <td>现居：</td>
+                                    <td>广东省广州市</td>
+                                </tr>
+                                <tr>
+                                    <td>邮箱：</td>
+                                    <td>993646298@qq.com</td>
+                                </tr>
+                                <tr>
+                                    <td>微信：</td>
+                                    <td>17620004641</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </ul>
                 </Col>

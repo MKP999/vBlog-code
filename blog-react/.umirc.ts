@@ -22,11 +22,6 @@ export default defineConfig({
           component: '@/pages/home/index',
           title: '首页'
         },
-        // {
-        //   path: '/blog',
-        //   component: '@/pages/blog/index',
-        //   title: '博客'
-        // },
         {
           path: '/blog',
           routes: [
