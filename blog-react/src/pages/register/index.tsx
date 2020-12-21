@@ -1,14 +1,44 @@
-import React from 'react'
-import { Form, Input, Button } from 'antd'
+import React, { useState } from 'react'
+import { Form, Input, Button, message } from 'antd'
 import { UserOutlined, LockOutlined, UserAddOutlined, MailOutlined, WechatOutlined, PhoneOutlined } from '@ant-design/icons';
 import FormWrapper from "../../components/FormWrapper";
-import { Link } from "umi";
+import { Link, history } from "umi";
 import './index.scss'
 
+import { register, getInfo } from "../../server/homeApi";
+
 const index = () => {
-      
+    const [ loading, setLoading ] = useState(false)
+
+      // 注册
     const onFinish = (values: any) => {
         console.log('Success:', values);
+        setLoading(true)
+        register(values).then((res: {data: {success: Boolean, msg: string, token: string}}) => {
+            console.log(res.data)
+            if (res.data.success) {
+                message.success('注册成功')
+                localStorage.setItem('blog_login', res.data.token)
+                getUserInfo()
+            } else {
+                message.error(res.data.msg);
+            }
+            setLoading(false)
+        }).catch(err => {
+            console.log(err)
+            setLoading(false)
+        })
+    }
+
+    // 获取当前用户信息
+    const getUserInfo = async () => {
+        try {
+            const res = await getInfo()
+            localStorage.setItem('blog_Info', JSON.stringify(res.data.data))
+            history.push('/home')
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -68,7 +98,7 @@ const index = () => {
                     </Form.Item>
 
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+                        <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
                         注册
                         </Button>
                         <div className="to-register"> 有账号 <Link to="/login">直接登录！</Link></div>

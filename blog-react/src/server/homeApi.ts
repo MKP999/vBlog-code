@@ -25,4 +25,22 @@ export function getInfo () {
       method: 'get'
     })
   }
-    
+
+  // 注册
+export function register (data: Object) {
+  return request({
+    url: '/users/register',
+    method: 'post',
+    data
+  })
+}
+
+// 获取段子
+export function getJoke (params: Object) {
+  return request({
+    url: '/entertainment/joke',
+    method: 'get',
+    params
+  })
+}
+

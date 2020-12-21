@@ -44,7 +44,7 @@ exports.Register = async ctx => {
     const user = await User.find({email})
     // 判断是否已经注册
     if (user.length > 0) {
-        ctx.status = 500
+        ctx.status = 200
         ctx.body = { success: false, msg: '用户已注册, 邮箱已存在'}
     } else {
         // 密码加密

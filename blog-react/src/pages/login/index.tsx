@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form, Input, Button, Checkbox, message } from 'antd'
 import { MailOutlined, LockOutlined, LoginOutlined } from '@ant-design/icons';
 import FormWrapper from "../../components/FormWrapper";
@@ -8,10 +8,12 @@ import './index.scss'
 import { login, getInfo } from "../../server/homeApi";
 
 const index = () => {
+    const [ loading, setLoading ] = useState(false)
       
     // 提交表单
     const onFinish = (values: any) => {
         console.log('Success:', values);
+        setLoading(true)
         login(values).then((res: {data: {success: Boolean, msg: string, token: string}}) => {
             console.log(res.data)
             if (res.data.success) {
@@ -21,8 +23,10 @@ const index = () => {
             } else {
                 message.error(res.data.msg);
             }
+            setLoading(false)
         }).catch(err => {
             console.log(err)
+            setLoading(false)
         })
     }
 
@@ -82,7 +86,7 @@ const index = () => {
                     </Form.Item>
 
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+                        <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
                         登录
                         </Button>
                         <div className="to-register"> 没有账号？ <Link to="/register">马上注册！</Link></div>

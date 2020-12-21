@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, Menu, Button, Dropdown } from 'antd';
 const { Header, Content, Footer } = Layout;
 import { HomeOutlined, UnorderedListOutlined, PlayCircleOutlined, CalendarOutlined, LinkOutlined, FieldTimeOutlined, DingtalkOutlined, LoginOutlined, UserAddOutlined, UserOutlined, DownOutlined, LogoutOutlined } from '@ant-design/icons';
-import { Link, useHistory } from 'umi'
+import { Link, useHistory, history } from 'umi'
 import './index.scss'
 
 const index = (props: { children: React.ReactNode }) => {
@@ -17,10 +17,19 @@ const index = (props: { children: React.ReactNode }) => {
     const menu = (
         <Menu>
           <Menu.Item>
-            <Button><LogoutOutlined /> 退出登录</Button>
+            <Button onClick={() => logout()}><LogoutOutlined /> 退出登录</Button>
           </Menu.Item>
         </Menu>
       )
+
+      const logout = () => {
+          localStorage.removeItem('blog_Info')
+          localStorage.removeItem('blog_login')
+          history.push('/home')
+      }
+
+      // 退出登录
+
     console.log('location => ', location)
     // 匹配路径
     // const matchUrl = (url) => {
