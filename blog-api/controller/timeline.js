@@ -5,7 +5,7 @@ const validateTimelineInput = require('../validation/timeline')
 
 /**
  * @route GET api/timeline/test
- * @desc  获取时光轴
+ * @desc  测试
  * @access 接口是公开的
  */
 exports.Test = async ctx => {

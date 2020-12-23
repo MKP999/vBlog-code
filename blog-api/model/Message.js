@@ -21,7 +21,31 @@ const MessageSchema = new Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    comments: [
+        {
+            user: {
+                type: Schema.Types.ObjectId,
+                ref: 'users'
+            },
+            content: {
+                type: String,
+                require: true
+            },
+            name: {
+                type: String,
+                require: true
+            },
+            avatar: {
+                type: String,
+                require: true
+            },
+            date: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ]
 })
 
 module.exports = Message = mongoose.model('messages', MessageSchema)

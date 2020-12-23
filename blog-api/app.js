@@ -58,6 +58,7 @@ const article = require('./routes/article')
 const message = require('./routes/message')
 const entertainment = require('./routes/entertainment')
 const timeline = require('./routes/timeline')
+const blogroll = require('./routes/blogroll')
 
 // 配置路由根路径
 router.use('/api/users', user)
@@ -65,6 +66,7 @@ router.use('/api/articles', article)
 router.use('/api/messages', message)
 router.use('/api/entertainment', entertainment)
 router.use('/api/timeline', timeline)
+router.use('/api/blogroll', blogroll)
 
 // 配置路由
 app.use(router.routes()).use(router.allowedMethods());
