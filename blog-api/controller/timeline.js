@@ -53,9 +53,6 @@ exports.AddTimeline = async ctx => {
     if (body.color) {
       timelineInfo.color = body.color
     }
-    if (body.time) {
-      timelineInfo.time = body.time
-    }
 
     // 存储
     const timeline = await new Timeline(timelineInfo)

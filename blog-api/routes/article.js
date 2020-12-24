@@ -3,7 +3,7 @@ const router = new Router()
 // token 验证 passport
 const passport = require('koa-passport')
 
-const { Test, GetArticle, GetArticles, CreateArticle, UpdateArticle, ToggleLike, CreateComment, DeleteComment } = require('../controller/article')
+const { Test, GetArticle, GetArticles, CreateArticle, UpdateArticle, ToggleLike, CreateComment, DeleteComment, Search, GetNumber } = require('../controller/article')
 
 // advanceResult 封装高级搜索中间件
 const advanceResult = require('../middleware/advanceResult')
@@ -19,5 +19,7 @@ router
     .post('/like', passport.authenticate('jwt', { session: false }), ToggleLike)
     .post('/comment', passport.authenticate('jwt', { session: false }), CreateComment)
     .delete('/comment', passport.authenticate('jwt', { session: false }), DeleteComment)
+    .get('/search', Search)
+    .get('/number', GetNumber)
 
 module.exports = router.routes()

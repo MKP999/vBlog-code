@@ -18,10 +18,6 @@ const TimelineSchema = new Schema({
       type: String,
       require: true
     },
-    time: {
-      type: String,
-      require: true
-    },
     date: {
         type: Date,
         default: Date.now

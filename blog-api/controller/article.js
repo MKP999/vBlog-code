@@ -270,3 +270,56 @@ exports.DeleteComment = async ctx => {
         console.log(error)
     }
 }
+
+/**
+ * @route GET api/articles/search?title=123
+ * @desc  模糊查询文章标题
+ * @access 接口是公开的
+ */
+exports.Search = async ctx => {
+    const title = ctx.query.title
+    try {
+        const article = await Article.find().sort({date: -1})
+        const data = [] 
+        article.forEach(item => {
+            if (item.title.includes(title)) {
+                return data.push(item)
+            }
+        })
+        ctx.status = 200
+        ctx.body = { success: true, total: data.length, data }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+/**
+ * @route GET api/articles/number
+ * @desc    获取文章数、评论数、访问（难搞）、分类的文章数
+ * @access 接口是公开的
+ */
+exports.GetNumber = async ctx => {
+    try {
+        const article = await Article.find().sort({date: -1})
+        // 文章数
+        const total = await Article.countDocuments()
+        // 评论数
+        let commitNum = 0
+        // 分类文章数 前端获取用 object.keys取出
+        let classify = {}
+        article.forEach(item => {
+            commitNum += item.comments.length
+            if (classify[item.type]) {
+                classify[item.type] += 1
+            } else {
+                classify[item.type] = 1
+            }
+        })
+        // 访问难搞
+        ctx.status = 200
+        ctx.body = { success: true, data: { total, commitNum, classify} }
+    } catch (error) {
+        console.log(error)
+    }
+}

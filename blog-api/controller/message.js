@@ -1,5 +1,6 @@
 const Message = require('../model/Message')
 const validateMessageInput = require('../validation/message')
+const validateCommentInput = require('../validation/comment')
 
 /**
  * @route GET api/messages/test
@@ -88,5 +89,48 @@ exports.DeleteMessage = async ctx => {
     } catch(err) {
         ctx.status = 404
         ctx.body = { success: false, msg: '留言不存在' }
+    }
+}
+
+/**
+ * @route POST api/messages/comment?:id
+ * @desc  创建留言评论
+ * @access 接口是公开的
+ */
+exports.CreateComment = async ctx => {
+    const id = ctx.query.id
+    const body = ctx.request.body
+
+    // 验证评论表单
+    const { error, isValid } = validateCommentInput(body)
+    if (!isValid) {
+        ctx.status = 400
+        ctx.body = error
+        return
+    }
+
+    // 判断留言是否存在
+    try {
+        const message = await Message.findById(id)
+        if (message) {
+            const commentInfo = {
+                name: body.name,
+                email: body.email,
+                content: body.content
+            }
+            console.log('commentInfo => ', commentInfo)
+            message.comments.push(commentInfo)
+            // 更新 缓存
+            const updateMessage = await Message.findByIdAndUpdate(
+                {_id: id},
+                {$set: message},
+                {new:true}
+            )
+            ctx.body = {success: true, data: updateMessage}
+        }
+    } catch (error) {
+        ctx.status = 404
+        ctx.body = { success: false, msg: '留言不存在'}
+        console.log(error)
     }
 }

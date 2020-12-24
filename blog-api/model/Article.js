@@ -17,7 +17,8 @@ const ArticleSchema = new Schema({
     },
     type: {
         type: String,
-        require: true
+        require: true,
+        default: 'unClassified'
     },
     like: [
         {

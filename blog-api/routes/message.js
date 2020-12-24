@@ -3,7 +3,7 @@ const router = new Router()
 // token 验证 passport
 const passport = require('koa-passport')
 
-const { Test, CreateMessage, GetMessages, DeleteMessage } = require('../controller/message')
+const { Test, CreateMessage, GetMessages, DeleteMessage, CreateComment } = require('../controller/message')
 
 // 路由守卫 角色鉴权
 const { authorize } = require('../middleware/auth')
@@ -18,5 +18,6 @@ router
     .get('/messages', advanceResult(Message) , GetMessages)
     .post('/message', CreateMessage)
     .delete('/message', passport.authenticate('jwt', { session: false }), authorize('admin'), DeleteMessage)
+    .post('/comment', CreateComment)
 
 module.exports = router.routes()

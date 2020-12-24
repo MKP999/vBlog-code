@@ -50,7 +50,7 @@ const index = () => {
                     </Form.Item>
                     <Form.Item
                         label=""
-                        name="username"
+                        name="content"
                         rules={[{ required: true, message: '亲, 您忘记填写内容啦~' }]}
                     >
                         <TextArea rows={4} placeholder="有什么想对站长说的呢~" />

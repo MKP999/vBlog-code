@@ -24,19 +24,15 @@ const MessageSchema = new Schema({
     },
     comments: [
         {
-            user: {
-                type: Schema.Types.ObjectId,
-                ref: 'users'
-            },
-            content: {
-                type: String,
-                require: true
-            },
             name: {
                 type: String,
                 require: true
             },
-            avatar: {
+            email:{
+                type: String,
+                require: true
+            },
+            content: {
                 type: String,
                 require: true
             },
