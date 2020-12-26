@@ -1,6 +1,10 @@
 import request from '../util/request'
 
-// 获取新闻列表
+/**
+ * @desc 获取新闻列表
+ * @access 接口公开
+ * @param  
+ */
 export function getNewsList (params: Object) {
   return request({
     url: '/entertainment/news',
@@ -9,7 +13,12 @@ export function getNewsList (params: Object) {
   })
 }
 
-// 登录
+
+/**
+ * @desc 登录
+ * @access 接口公开
+ * @data  
+ */
 export function login (data: Object) {
     return request({
       url: '/users/login',
@@ -17,8 +26,12 @@ export function login (data: Object) {
       data
     })
   }
+  
 
-  // 获取当前用户信息
+/**
+ * @desc  获取当前用户信息
+ * @access 接口私有
+ */
 export function getInfo () {
     return request({
       url: '/users/current',
@@ -26,7 +39,12 @@ export function getInfo () {
     })
   }
 
-  // 注册
+  
+/**
+ * @desc 注册
+ * @access 接口公开
+ * @data  
+ */
 export function register (data: Object) {
   return request({
     url: '/users/register',
@@ -35,12 +53,4 @@ export function register (data: Object) {
   })
 }
 
-// 获取段子
-export function getJoke (params: Object) {
-  return request({
-    url: '/entertainment/joke',
-    method: 'get',
-    params
-  })
-}
 

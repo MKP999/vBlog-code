@@ -77,39 +77,15 @@ exports.AddBlogroll = async ctx => {
  */
 exports.UpdateType = async ctx => {
   const id = ctx.query.id
-  const body = ctx.request.body
 
-  const { error, isValid } = validateBlogrollInput(body)
-  if (!isValid) {
-      ctx.status = 400
-      ctx.body = error
-      return
-  }
   try {
     const blogroll = await Blogroll.findById(id)
     if (blogroll) {
-      const blogrollInfo = {}
       // 初创建需要通过审核
-      blogrollInfo.type = 1
-      if (body.user) {
-        blogrollInfo.user = body.user
-      }
-      if (body.title) {
-        blogrollInfo.title = body.title
-      }
-      if (body.avatar) {
-        blogrollInfo.avatar = body.avatar
-      }
-      if (body.describe) {
-        blogrollInfo.describe = body.describe
-      }
-      if (body.url) {
-        blogrollInfo.url = body.url
-      }
-
+      blogroll.type = 1
       const updateBlogroll = await Blogroll.findByIdAndUpdate(
         {_id: id},
-        {$set: blogrollInfo},
+        {$set: blogroll},
         {new: true}
       )
 

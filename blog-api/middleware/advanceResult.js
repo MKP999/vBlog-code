@@ -32,7 +32,7 @@ const advanceResult = (model, populate) => async (ctx, next) => {
 
     // 分页
     const page = parseInt(ctx.query.page, 10) || 1;
-    const limit = parseInt(ctx.query.limit, 10) || 3;
+    const limit = parseInt(ctx.query.limit, 10) || 10;
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
     const total = await model.countDocuments();

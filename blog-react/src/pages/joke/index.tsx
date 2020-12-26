@@ -4,7 +4,7 @@ import { Image, Button } from 'antd'
 import { InteractionOutlined  } from '@ant-design/icons';
 import "./index.scss"
 
-import { getJoke } from "../../server/homeApi";
+import { getJoke } from "../../server/jokeApi";
 
 const index = () => {
     const [ joke, setJoke ] = useState({})

@@ -296,7 +296,7 @@ exports.Search = async ctx => {
 
 /**
  * @route GET api/articles/number
- * @desc    获取文章数、评论数、访问（难搞）、分类的文章数
+ * @desc    获取文章数、评论数、点赞、分类的文章数
  * @access 接口是公开的
  */
 exports.GetNumber = async ctx => {
@@ -306,19 +306,21 @@ exports.GetNumber = async ctx => {
         const total = await Article.countDocuments()
         // 评论数
         let commitNum = 0
+        // 点赞
+        let likeNum = 0
         // 分类文章数 前端获取用 object.keys取出
         let classify = {}
         article.forEach(item => {
             commitNum += item.comments.length
+            likeNum += item.like.length
             if (classify[item.type]) {
                 classify[item.type] += 1
             } else {
                 classify[item.type] = 1
             }
         })
-        // 访问难搞
         ctx.status = 200
-        ctx.body = { success: true, data: { total, commitNum, classify} }
+        ctx.body = { success: true, data: { total, commitNum, likeNum, classify} }
     } catch (error) {
         console.log(error)
     }

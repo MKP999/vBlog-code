@@ -1,25 +1,49 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Row, Col, BackTop, List, Avatar, Space, Input, Button } from 'antd';
-import { UpCircleOutlined, FolderOpenOutlined, MessageOutlined, LikeOutlined, StarOutlined, PlusCircleOutlined  } from '@ant-design/icons';
+import { UpCircleOutlined, FolderOpenOutlined, MessageOutlined, LikeOutlined, ClockCircleOutlined, PlusCircleOutlined  } from '@ant-design/icons';
 import avatar from "../../public/images/zp.png";
 import { history } from 'umi'
+import { timestampToTime } from "../../util/time";
+import { getArticlesList, getArticlesData, getSearch } from "../../server/blogApi";
 
 import './index.scss'
 
 const index = () => {
     const { Search } = Input;
-    const listData = [];
-    for (let i = 0; i < 23; i++) {
-    listData.push({
-        href: 'https://ant.design',
-        title: `ant design part ${i}`,
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-        description:
-        'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-        content:
-        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-    });
-    }
+    const [ listData, setListData ] = useState([])
+    const [ data, setData ] = useState({})
+    const [ typeList, setTypeList ] = useState([])
+
+    const blog_Info = localStorage.getItem('blog_Info')
+    const role = blog_Info ? JSON.parse(blog_Info).role : ''
+
+    useEffect(() => {
+        getArticlesList({ page: 1, limit: 10}).then(res => {
+            res.data.data.forEach((item: {avatar: string}) => {
+                item.avatar = 'http://q1.qlogo.cn/g?b=qq&nk=993646298&s=100'
+            })
+            setListData(res.data.data)
+        })
+    }, [])
+
+    useEffect(() => {
+        getArticlesData().then(res => {
+            console.log(res.data)
+            setData(res.data.data)
+            const list = []
+            const arr = Object.keys(res.data.data.classify)
+            arr.forEach((item, index) => {
+                const obj = { 
+                    id: index,
+                    type: item,
+                    count: res.data.data.classify[item]
+                }
+                list.push(obj)
+            })
+            setTypeList(list)
+        })
+    }, [])
+
 
     const IconText = (item: { icon: any, text: any }) => (
     <Space>
@@ -27,50 +51,47 @@ const index = () => {
         {item.text}
     </Space>
     )
+
+    // 点击分类类型
+    const searchType = (type: string) => {
+        getArticlesList({ page: 1, limit: 10, type}).then(res => {
+            res.data.data.forEach((item: {avatar: string}) => {
+                item.avatar = 'http://q1.qlogo.cn/g?b=qq&nk=993646298&s=100'
+            })
+            setListData(res.data.data)
+        })
+    }
     
     // 搜索
-    const onSearch = (value: String) => console.log(value)
+    const onSearch = (value: String) => {
+        console.log(value)
+        getSearch({title: value}).then(res => {
+            console.log(res.data)
+            res.data.data.forEach((item: {avatar: string}) => {
+                item.avatar = 'http://q1.qlogo.cn/g?b=qq&nk=993646298&s=100'
+            })
+            setListData(res.data.data)
+        })
+    }
 
     // 点击进去写作中心
     const handleClick = () => {
         history.push('/blog/edite')
     }
 
-    const typeList = [
-        {
-            id: 1,
-            type: 'js',
-            count: '10'
-        },
-        {
-            id: 2,
-            type: 'vue',
-            count: '15'
-        },
-        {
-            id: 3,
-            type: 'react',
-            count: '20'
-        },
-        {
-            id: 4,
-            type: 'npm',
-            count: '25'
-        },
-        {
-            id: 5,
-            type: 'php',
-            count: '40'
-        },
-        {
-            id: 6,
-            type: 'python',
-            count: '99'
-        }
-    ]
+    // 删除
+    const handleDelete = (id: string) => {
+        console.log(id, '暂无接口')
+    } 
+
+    // 编辑
+    const handleUpdate = (id:string) => {
+        console.log(id)
+        history.push('/blog/edite')
+    } 
 
     return (
-        <div style={{height: '100%' }}>
+        <div style={{minHeight: 'calc(100vh - 114px)', height: '100%'}}>
             <div style={{padding: '15px 0', position: 'relative'}}>
             <Button className="create-center" shape="round" icon={<PlusCircleOutlined />} size="large" onClick={() => handleClick()}>
                 创作中心
@@ -85,9 +106,9 @@ const index = () => {
                                     <div style={{background: "#fff", paddingTop: '15px', marginBottom: '15px', textAlign: 'center', boxShadow: '0 2px 10px rgba(0,0,0,1)', borderRadius: '2px'}}>
                                         <Avatar size={64} src={avatar} style={{marginBottom: '15px', border: '1px solid #eee'}} />
                                         <ul className="blog-data">
-                                            <li><span className="number">111</span> <br/>原创</li>
-                                            <li><span className="number">666</span> <br/>评论</li>
-                                            <li><span className="number">9999</span> <br/>访问</li>
+                                            <li><span className="number">{data.total}</span> <br/>原创</li>
+                                            <li><span className="number">{data.likeNum}</span> <br/>点赞</li>
+                                            <li><span className="number">{data.commitNum}</span> <br/>评论</li>
                                         </ul>
                                     </div>
                                     {/* 搜索文章 */}
@@ -98,7 +119,7 @@ const index = () => {
                                         <ul className="classify">
                                             {typeList.map(item => {
                                                 return (
-                                                    <li key={item.id}>
+                                                    <li className="type-style" key={item.id} onClick={() => searchType(item.type)}>
                                                         <span><FolderOpenOutlined />{item.type}</span>
                                                         <span style={{color: '#999aaa'}}>{item.count}篇</span>
                                                     </li>
@@ -123,24 +144,28 @@ const index = () => {
                                     }}
                                     dataSource={listData}
                                     footer={
-                                    <div>
-                                        <b>ant design</b> footer part
-                                    </div>
+                                    <div></div>
                                     }
                                     renderItem={item => (
                                     <List.Item
-                                        key={item.title}
+                                        key={item._id}
                                         actions={[
-                                        <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-                                        <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-                                        <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+                                        <IconText icon={LikeOutlined} text={item.like.length} key="list-vertical-like-o" />,
+                                        <IconText icon={MessageOutlined} text={item.comments.length} key="list-vertical-message" />,
+                                        <IconText icon={ClockCircleOutlined} text={timestampToTime(new Date(item.date).getTime())} key="list-vertical-message" />,
+                                        <IconText icon={FolderOpenOutlined} text={item.type} key="list-vertical-message" />,
                                         ]}
                                         extra={
-                                        <img
-                                            width={272}
-                                            alt="logo"
-                                            src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                                        />
+                                            role === 'admin' ? (
+                                                    <div>
+                                            <span onClick={() => handleUpdate(item._id)} style={{padding: '4px 6px', cursor: 'pointer'}}>
+                                                编辑
+                                            </span>
+                                            <Button onClick={() => handleDelete(item._id)} style={{padding: '4px 6px'}} type="link" danger>
+                                                删除
+                                            </Button>
+                                        </div>
+                                                ) : ''
                                         }
                                     >
                                         <List.Item.Meta

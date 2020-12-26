@@ -43,7 +43,7 @@ const index = () => {
 
 
     return (
-        <div style={{height: 'calc(100vh - 114px)'}}>
+        <div style={{minHeight: 'calc(100vh - 114px)', height: '100%'}}>
             <Row>
                 <Col span={16} offset={4}>
                     <div id="editor" ></div>

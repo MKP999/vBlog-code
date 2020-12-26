@@ -73,6 +73,7 @@ exports.Register = async ctx => {
  */
 exports.Login = async ctx => {
     console.log(ctx.request.body)
+    console.log('ip => ', ctx.request.headers)
     // 验证登录 表单
     const { error, isValid } = validateLoginInput(ctx.request.body)
     // isValid 判断error 是否为空 
