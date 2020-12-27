@@ -44,7 +44,7 @@ const advanceResult = (model, populate) => async (ctx, next) => {
         query = query.populate(populate);
     }
 
-    const results = await query;
+    const results = await query.sort({date: -1});
 
     // 分页返回值
     const pagination = {};

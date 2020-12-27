@@ -5,70 +5,63 @@ import { PlusCircleOutlined  } from '@ant-design/icons';
 
 import './index.scss'
 
+import { getBlogrollList, updateBlogroll } from "../../server/blogroll";
+
 
 const index = () => {
+    
+    const blog_Info = localStorage.getItem('blog_Info')
+    const role = blog_Info ? JSON.parse(blog_Info).role : ''
+
     const { Meta } = Card;
     const [ loading, setLoading ] = useState(true)
     const [ info, setInfo ] = useState({})
+    const [ list, setList ] = useState([])
+    const [ checklist, setCheckList ] = useState([])
 
     useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 2000);
+        getData()
     }, [])
 
-    const list = [
-        {
-            id: 1,
-            title: 'CSDN - 专业开发者社区',
-            avatar: 'https://g.csdnimg.cn/static/logo/favicon32.ico',
-            describe: 'CSDN 成就一亿技术员',
-            url: 'https://www.csdn.net/'
-        },
-        {
-            id: 2,
-            title: 'CSDN - 专业开发者社区',
-            avatar: 'https://g.csdnimg.cn/static/logo/favicon32.ico',
-            describe: 'CSDN 成就一亿技术员',
-            url: 'https://www.csdn.net/'
-        },
-        {
-            id: 3,
-            title: 'CSDN - 专业开发者社区',
-            avatar: 'https://g.csdnimg.cn/static/logo/favicon32.ico',
-            describe: 'CSDN 成就一亿技术员',
-            url: 'https://www.csdn.net/'
-        },
-        {
-            id: 4,
-            title: 'CSDN - 专业开发者社区',
-            avatar: 'https://g.csdnimg.cn/static/logo/favicon32.ico',
-            describe: 'CSDN 成就一亿技术员',
-            url: 'https://www.csdn.net/'
-        },
-        {
-            id: 5,
-            title: 'CSDN - 专业开发者社区',
-            avatar: 'https://g.csdnimg.cn/static/logo/favicon32.ico',
-            describe: 'CSDN 成就一亿技术员',
-            url: 'https://www.csdn.net/'
-        }
-    ]
+    const getData = () => {
+        getBlogrollList().then(res => {
+            console.log(res.data)
+            const list1: [] = []
+            const list2: [] = []
+            res.data.data.forEach((item: {type: number}) => {
+                if (item.type === 0) {
+                    list2.push(item)
+                } else {
+                    list1.push(item)
+                }
+            })
+            setList(list1)
+            setCheckList(list2)
+            setLoading(false)
+        })
+    }
 
-    const confirm = (e) => {
-        console.log(e);
-        console.log(info);
-        message.success('Click on Yes');
+    const confirm = () => {
+        if (role === 'admin') {
+            updateBlogroll({id: info._id}).then(res => {
+                if (res.data.success) {
+                    message.success(`${info.title}(${info._id})通过审核`);
+                    getData()
+                } else {
+                    message.error('审核失败，请重试~');
+                }
+            })
+        } else {
+            message.error('抱歉，你没有该权限~');
+        }
       }
       
-      const cancel = (e) => {
-        console.log(e);
-        console.log(info);
-        message.error('Click on No');
+      const cancel = () => {
+        return
       }
 
 
-      const handleClick = (item) => {
+      const handleClick = (item: object) => {
           console.log('item', item)
           setInfo(item)
       }
@@ -82,8 +75,8 @@ const index = () => {
                 <Row gutter={16} style={{padding: '10px'}}>
                     {list.map(item => {
                         return (
-                            <Col key={item.id} span={8}>
-                                <Card style={{ width: 400, marginTop: 16 }} >
+                            <Col key={item._id} span={8}>
+                                <Card style={{ width: '100%', marginTop: 16 }} >
                                     <Skeleton loading={loading} avatar active>
                                         <Meta
                                             avatar={
@@ -102,17 +95,17 @@ const index = () => {
             <PageWrapper>
                 <Divider style={{color: '#fff', borderColor: '#fff', fontSize: '18px'}}>审批中</Divider>
                 <Row gutter={16} style={{padding: '10px'}}>
-                    {list.map(item => {
+                    {checklist.map(item => {
                         return (
-                            <Col key={item.id} span={8}>
+                            <Col key={item._id} span={8}>
                                 <Popconfirm
-                                    title="Are you sure to delete this task?"
+                                    title="请确认该友链通过审核吗"
                                     onConfirm={confirm}
                                     onCancel={cancel}
-                                    okText="Yes"
-                                    cancelText="No"
+                                    okText="确定"
+                                    cancelText="取消"
                                     >
-                                    <Card style={{ width: 400, marginTop: 16 }} onClick={() => handleClick(item)} >
+                                    <Card style={{ width: '100%', marginTop: 16 }} onClick={() => handleClick(item)} >
                                         <Skeleton loading={loading} avatar active>
                                             <Meta
                                                 avatar={

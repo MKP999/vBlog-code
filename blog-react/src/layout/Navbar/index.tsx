@@ -87,9 +87,9 @@ const index = (props: { children: React.ReactNode }) => {
                 </div>
 
             </Header>
-            <Content className="content-warpper">
-                {props.children}
-            </Content>
+                <Content className="content-warpper">
+                    {props.children}
+                </Content>
             <Footer style={{ textAlign: 'center', background: '#001529', color: '#fff' }}>Ant Design ©2020 Created by MKP</Footer>
         </Layout>
     )

@@ -14,6 +14,7 @@ import jokeBg from '../../public/images/joke.png'
 import { getNewsList } from "../../server/homeApi";
 
 const index = () => {
+
     const [ news, setNews ] = useState([])
     const content = '一名依靠毒鸡汤, 每天激情热血的程序员'
     const [title, setTitle ] = useState('')

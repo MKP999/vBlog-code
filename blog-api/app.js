@@ -8,6 +8,8 @@ const mongoose = require('mongoose')
 const cors = require('koa2-cors')
 // token 验证
 const passport = require('koa-passport')
+// 引入压缩
+const compress = require('koa-compress')
 
 const app = new koa()
 
@@ -27,6 +29,8 @@ mongoose.connect(db,
     console.log(err)
   })
 
+// 开启gzip
+app.use(compress({threshold: 2048}))
 app.use(bodyParser())
 app.use(cors({
     origin: function(ctx) {

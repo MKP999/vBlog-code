@@ -28,11 +28,12 @@ export function addBlogroll (data: Object) {
   /**
  * @desc 修改友情链接审批状态
  * @access 接口私有
- * @data  
+ * @params  
  */
-export function updateBlogroll () {
+export function updateBlogroll (params: object) {
     return request({
       url: '/blogroll/update',
-      method: 'put'
+      method: 'put',
+      params
     })
   }

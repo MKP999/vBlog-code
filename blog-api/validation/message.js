@@ -7,8 +7,8 @@ module.exports = function validateMessageInput (data) {
     if (validator.isEmpty(data.name)) {
         error.msg = 'name不能为空'
     }
-    if (!validator.isLength(data.name, {min: 3, max: 12})) {
-        error.msg = 'name的长度不能小于3位且不能超过12位'
+    if (!validator.isLength(data.name, {min: 1, max: 12})) {
+        error.msg = 'name的长度不能小于1位且不能超过12位'
     }
     if (validator.isEmpty(data.email)) {
         error.msg = 'email不能为空'

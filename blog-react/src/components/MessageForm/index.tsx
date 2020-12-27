@@ -3,21 +3,29 @@ import { Input, Form, Button } from "antd";
 import './index.scss'
 
 
-const index = () => {
+const index = (props: {handleSubmit: Function, type: String}) => {
     const { TextArea } = Input
+    const [ form ] = Form.useForm()
 
     const onFinish = (values: any) => {
-        console.log('Success:', values);
-      };
+        console.log(props.type)
+        props.handleSubmit({...values, type: props.type})
+        form.setFieldsValue({
+            name: '',
+            email: '',
+            content: ''
+        })
+    }
     
-      const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
-      }
+    const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+    }
 
 
     return (
         <div className="message-wrapper">
                 <Form
+                    form={form} 
                     name="basic"
                     initialValues={{ remember: true }}
                     onFinish={onFinish}
@@ -57,7 +65,7 @@ const index = () => {
                     </Form.Item>
                     <Form.Item>
                         <Button style={{background: '#fff', color: '#000', float: 'right'}} htmlType="submit">
-                            发言
+                            {props.type === 'message' ? '畅言一番' : '发言'}
                         </Button>
                     </Form.Item>
                 </Form>

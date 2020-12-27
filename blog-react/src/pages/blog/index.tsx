@@ -93,9 +93,11 @@ const index = () => {
     return (
         <div style={{minHeight: 'calc(100vh - 114px)', height: '100%'}}>
             <div style={{padding: '15px 0', position: 'relative'}}>
+            {role === 'admin' &&  
             <Button className="create-center" shape="round" icon={<PlusCircleOutlined />} size="large" onClick={() => handleClick()}>
                 创作中心
             </Button>
+        }
                 <Row>
                     <Col span={16} offset={4}>
                         <Row gutter={15} style={{position: 'relative'}}>

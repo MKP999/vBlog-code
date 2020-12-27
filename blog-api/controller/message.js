@@ -17,7 +17,6 @@ exports.Test = async ctx => {
  * @access 接口是公开的
  */
 exports.GetMessages = async ctx => {
-    console.log(new Date().getTime())
     ctx.body = ctx.advancedResults
 }
 
