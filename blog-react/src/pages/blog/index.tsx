@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, BackTop, List, Avatar, Space, Input, Button } from 'antd';
+import { Row, Col, BackTop, List, Avatar, Space, Input, Button, Skeleton } from 'antd';
 import { UpCircleOutlined, FolderOpenOutlined, MessageOutlined, LikeOutlined, ClockCircleOutlined, PlusCircleOutlined  } from '@ant-design/icons';
 import avatar from "../../public/images/zp.png";
-import { history } from 'umi'
+import { history, Link } from 'umi'
 import { timestampToTime } from "../../util/time";
 import { getArticlesList, getArticlesData, getSearch } from "../../server/blogApi";
 
@@ -13,16 +13,19 @@ const index = () => {
     const [ listData, setListData ] = useState([])
     const [ data, setData ] = useState({})
     const [ typeList, setTypeList ] = useState([])
+    const [ loading, setLoading ] = useState(false)
 
     const blog_Info = localStorage.getItem('blog_Info')
     const role = blog_Info ? JSON.parse(blog_Info).role : ''
 
     useEffect(() => {
+        setLoading(true)
         getArticlesList({ page: 1, limit: 10}).then(res => {
             res.data.data.forEach((item: {avatar: string}) => {
                 item.avatar = 'http://q1.qlogo.cn/g?b=qq&nk=993646298&s=100'
             })
             setListData(res.data.data)
+            setLoading(false)
         })
     }, [])
 
@@ -90,6 +93,20 @@ const index = () => {
         history.push('/blog/edite')
     } 
 
+    // 骨架
+    const loadingSkeleton: [] = []
+    for (let i = 0; i < 8; i++) {
+        loadingSkeleton.push(1)
+    }
+
+    // 点击进入文章详情
+     const getDetail = (id: string) => {
+         console.log(id)
+     }
+
+     // 文章详情页面
+     const detailUrl = '/blog/detail'
+
     return (
         <div style={{minHeight: 'calc(100vh - 114px)', height: '100%'}}>
             <div style={{padding: '15px 0', position: 'relative'}}>
@@ -135,50 +152,63 @@ const index = () => {
                             {/* style={{overflow: "auto", height: 'calc(100vh - 144px)'}} */}
                             <Col span={18} >
                                 <div style={{background: "#fff", padding: '10px', boxShadow: '0 2px 10px rgba(0,0,0,1)',  borderRadius: '2px'}}>
-                                <List
-                                    itemLayout="vertical"
-                                    size="large"
-                                    pagination={{
-                                    onChange: page => {
-                                        console.log(page);
-                                    },
-                                    pageSize: 10,
-                                    }}
-                                    dataSource={listData}
-                                    footer={
-                                    <div></div>
-                                    }
-                                    renderItem={item => (
-                                    <List.Item
-                                        key={item._id}
-                                        actions={[
-                                        <IconText icon={LikeOutlined} text={item.like.length} key="list-vertical-like-o" />,
-                                        <IconText icon={MessageOutlined} text={item.comments.length} key="list-vertical-message" />,
-                                        <IconText icon={ClockCircleOutlined} text={timestampToTime(new Date(item.date).getTime())} key="list-vertical-message" />,
-                                        <IconText icon={FolderOpenOutlined} text={item.type} key="list-vertical-message" />,
-                                        ]}
-                                        extra={
-                                            role === 'admin' ? (
-                                                    <div>
-                                            <span onClick={() => handleUpdate(item._id)} style={{padding: '4px 6px', cursor: 'pointer'}}>
-                                                编辑
-                                            </span>
-                                            <Button onClick={() => handleDelete(item._id)} style={{padding: '4px 6px'}} type="link" danger>
-                                                删除
-                                            </Button>
-                                        </div>
-                                                ) : ''
+                                { listData.length === 0 ? 
+                                (
+                                    <div>
+                                        {loadingSkeleton.map((item, i) =>{
+                                            return (
+                                                <Skeleton key={i}  avatar title={false} loading={loading} paragraph={{ rows: 3 }} active></Skeleton>
+                                            )
+                                        } )}
+                                    </div>
+                                ): 
+                                (
+                                    <List
+                                        itemLayout="vertical"
+                                        size="large"
+                                        pagination={{
+                                        onChange: page => {
+                                            console.log(page);
+                                        },
+                                        pageSize: 10,
+                                        }}
+                                        dataSource={listData}
+                                        footer={
+                                        <div></div>
                                         }
-                                    >
-                                        <List.Item.Meta
-                                        avatar={<Avatar src={item.avatar} />}
-                                        title={<a href={item.href}>{item.title}</a>}
-                                        description={item.description}
-                                        />
-                                        {item.content}
-                                    </List.Item>
-                                    )}
-                                />
+                                        renderItem={item => (
+                                            <List.Item
+                                                key={item._id}
+                                                actions={[
+                                                <IconText icon={LikeOutlined} text={item.like.length} key="list-vertical-like-o" />,
+                                                <IconText icon={MessageOutlined} text={item.comments.length} key="list-vertical-message" />,
+                                                <IconText icon={ClockCircleOutlined} text={timestampToTime(new Date(item.date).getTime())} key="list-vertical-message" />,
+                                                <IconText icon={FolderOpenOutlined} text={item.type} key="list-vertical-message" />,
+                                                ]}
+                                                extra={
+                                                    role === 'admin' ? (
+                                                            <div>
+                                                    <span onClick={() => handleUpdate(item._id)} style={{padding: '4px 6px', cursor: 'pointer'}}>
+                                                        编辑
+                                                    </span>
+                                                    <Button onClick={() => handleDelete(item._id)} style={{padding: '4px 6px'}} type="link" danger>
+                                                        删除
+                                                    </Button>
+                                                </div>
+                                                        ) : ''
+                                                }
+                                                onClick={() => getDetail(item._id)}
+                                            >   
+                                                    <List.Item.Meta
+                                                    avatar={<Avatar src={item.avatar} />}
+                                                    title={<Link to={detailUrl}>{item.title}</Link>}
+                                                    description={item.description}
+                                                    />
+                                                    {item.content}
+                                            </List.Item>
+                                        )}
+                                    />
+                                )}
                                 </div>
                             </Col>
                         </Row>

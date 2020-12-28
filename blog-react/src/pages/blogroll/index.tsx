@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Skeleton, Card, Avatar, Col, Row, Divider, Button, Popconfirm, message } from 'antd';
+import { Skeleton, Card, Avatar, Col, Row, Divider, Button, Popconfirm, message, Modal, Form, Input, Spin } from 'antd';
 import PageWrapper from "../../components/PageWrapper"
-import { PlusCircleOutlined  } from '@ant-design/icons';
+import { PlusCircleOutlined, MailOutlined, BankOutlined, HeatMapOutlined, BranchesOutlined, FileTextOutlined } from '@ant-design/icons';
 
 import './index.scss'
 
-import { getBlogrollList, updateBlogroll } from "../../server/blogroll";
+import { getBlogrollList, updateBlogroll, addBlogroll } from "../../server/blogrollApi";
 
 
 const index = () => {
@@ -14,15 +14,18 @@ const index = () => {
     const role = blog_Info ? JSON.parse(blog_Info).role : ''
 
     const { Meta } = Card;
-    const [ loading, setLoading ] = useState(true)
+    const [ loading, setLoading ] = useState(false)
     const [ info, setInfo ] = useState({})
     const [ list, setList ] = useState([])
     const [ checklist, setCheckList ] = useState([])
+
+    const [visible, setVisible] = useState(false)
 
     useEffect(() => {
         getData()
     }, [])
 
+    // 获取数据
     const getData = () => {
         getBlogrollList().then(res => {
             console.log(res.data)
@@ -41,6 +44,12 @@ const index = () => {
         })
     }
 
+    // 获取需要修改的友链 id
+    const handleUpdate = (item:object) => {
+        setInfo(item)
+    }
+
+    // 确认通过审核
     const confirm = () => {
         if (role === 'admin') {
             updateBlogroll({id: info._id}).then(res => {
@@ -60,19 +69,86 @@ const index = () => {
         return
       }
 
-
-      const handleClick = (item: object) => {
-          console.log('item', item)
-          setInfo(item)
+      // 打开添加友链弹窗
+      const handleClick = () => {
+        if (role === 'admin') {
+            setVisible(true)
+        }
       }
+
+      // 点击确认添加
+      const onFinish = (values: object) => {
+        console.log(values)
+        setLoading(true)
+        addBlogroll(values).then(res => {
+            setVisible(false);
+            setLoading(false);
+            getData()
+        })
+      }
+  
+    // 取消
+    const handleCancel = () => {
+      setVisible(false);
+    };
+
     return (
         <div style={{minHeight: 'calc(100vh - 114px)', height: '100%'}}>
             <Button className="create-center" shape="round" icon={<PlusCircleOutlined />} size="large" onClick={() => handleClick()}>
                 添加链接
             </Button>
+            {/* 添加弹窗 */}
+            <Modal
+                    title="添加友链"
+                    visible={visible}
+                    okText="确认"
+                    cancelText="取消"
+                    onCancel={handleCancel}
+                    maskClosable={false}
+                >
+                    <Form
+                        name="normal_login"
+                        className="login-form"
+                        initialValues={{ remember: true }}
+                        onFinish={onFinish}
+                        >
+                        <Form.Item
+                            name="title"
+                            rules={[{ required: true, message: '请输入网站名！' }]}
+                        >
+                            <Input prefix={<BankOutlined className="site-form-item-icon" />} maxLength={50} placeholder="网站名" />
+                        </Form.Item>
+                        <Form.Item
+                            name="avatar"
+                            rules={[{ required: true, message: '请输入网站logo！' }]}
+                        >
+                            <Input prefix={<HeatMapOutlined className="site-form-item-icon" />} placeholder="LOGO" />
+                        </Form.Item>
+                        <Form.Item
+                            name="url"
+                            rules={[{ required: true, message: '请输入网站地址！' }]}
+                        >
+                            <Input prefix={<BranchesOutlined className="site-form-item-icon" />} placeholder="网站地址" />
+                        </Form.Item>
+                        <Form.Item
+                            name="describe"
+                            rules={[{ required: true, message: '请输入网站描述！' }]}
+                        >
+                            <Input prefix={<FileTextOutlined className="site-form-item-icon" />} maxLength={50} placeholder="网站描述" />
+                        </Form.Item>
+                        <Form.Item>
+                        <Button type="primary" htmlType="submit" className="login-form-button" style={{float: 'right'}} loading={loading}>
+                            确认
+                        </Button>
+                    </Form.Item>
+
+                    </Form>
+                </Modal>
             <PageWrapper>
                 <Divider style={{color: '#fff', borderColor: '#fff', fontSize: '18px'}}>友情链接</Divider>
-                <Row gutter={16} style={{padding: '10px'}}>
+                {list.length === 0 ? <div className="loading-box"><Spin size="large" /></div> : 
+                (
+                    <Row gutter={16} style={{padding: '10px'}}>
                     {list.map(item => {
                         return (
                             <Col key={item._id} span={8}>
@@ -91,9 +167,13 @@ const index = () => {
                         )
                     })}
                 </Row>
+                )}
+                
             </PageWrapper>
             <PageWrapper>
                 <Divider style={{color: '#fff', borderColor: '#fff', fontSize: '18px'}}>审批中</Divider>
+                {list.length === 0 ? <div className="loading-box"><Spin size="large" /></div> : 
+                (
                 <Row gutter={16} style={{padding: '10px'}}>
                     {checklist.map(item => {
                         return (
@@ -105,7 +185,7 @@ const index = () => {
                                     okText="确定"
                                     cancelText="取消"
                                     >
-                                    <Card style={{ width: '100%', marginTop: 16 }} onClick={() => handleClick(item)} >
+                                    <Card style={{ width: '100%', marginTop: 16 }} onClick={() => handleUpdate(item)}>
                                         <Skeleton loading={loading} avatar active>
                                             <Meta
                                                 avatar={
@@ -120,7 +200,7 @@ const index = () => {
                             </Col>
                         )
                     })}
-                </Row>
+                </Row>)}
             </PageWrapper>
         </div>
     )

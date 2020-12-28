@@ -32,7 +32,7 @@ exports.AddTimeline = async ctx => {
     // 验证注册表单
     console.log(ctx.request.body)
     const body = ctx.request.body
-    const { error, isValid } = validateTimelineInput(ctx.request.body)
+    const { error, isValid } = validateTimelineInput(body)
     // isValid 判断error 是否为空 
     if (!isValid) {
         ctx.status = 400

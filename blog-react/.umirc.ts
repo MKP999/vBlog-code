@@ -34,6 +34,11 @@ export default defineConfig({
               component: '@/pages/blog/index',
               title: '博客'
             },
+            {
+                path: '/blog/detail',
+                component: '@/pages/detailBlog/index',
+                title: '博客详情'
+              },
             {
               path: '/blog/edite',
               component: '@/pages/blogEdite/index',

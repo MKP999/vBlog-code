@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Divider, Row, Col, BackTop, Pagination, message, Modal } from "antd";
+import { Divider, Row, Col, BackTop, Pagination, message, Modal, Spin } from "antd";
 import { MessageOutlined, UpCircleOutlined } from '@ant-design/icons';
 import MessageForm from "../../components/MessageForm";
 import { timestampToTime } from "../../util/time";
@@ -134,7 +134,11 @@ const index = () => {
                 <Col span={16} offset={4} style={{borderRadius: '10px' }}>
                 {/* 评论区 */}
                 <Divider style={{color: '#fff', borderColor: '#fff', fontSize: '18px'}}>评论</Divider>
-                <div className="comment-wrapper">
+                {messages.length === 0 ? (
+                    <div className="loading-box"><Spin size="large" /></div>
+                ) : 
+                (
+                    <div className="comment-wrapper">
                         {messages.map(item => {
                             return (
                                 // 留言信息
@@ -182,12 +186,16 @@ const index = () => {
                         <Pagination current={page} total={total} showSizeChanger={false} onChange={(e) => changePage(e)} />
                     </div>
                 </div>
+                )}
+                
 
                 {/* 删除弹出确认框 */}
                 <Modal
                     title="提示"
                     visible={visible}
                     onOk={handleOk}
+                    okText="确认"
+                    cancelText="取消"
                     confirmLoading={confirmLoading}
                     onCancel={handleCancel}
                 >

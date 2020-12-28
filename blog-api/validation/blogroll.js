@@ -16,11 +16,11 @@ module.exports = function validateBlogrollInput (data) {
     if (validator.isEmpty(data.url)) {
       error.msg = 'url不能为空'
     }
-    if (!validator.isLength(data.title, {min: 2, max: 50})) {
-        error.msg = 'title的长度不能小于2位且不能超过50位'
+    if (!validator.isLength(data.title, {min: 1, max: 50})) {
+        error.msg = 'title的长度不能小于1位且不能超过50位'
     }
-    if (!validator.isLength(data.describe, {min: 2, max: 50})) {
-        error.msg = 'describe的长度不能小于2位且不能超过50位'
+    if (!validator.isLength(data.describe, {min: 1, max: 50})) {
+        error.msg = 'describe的长度不能小于1位且不能超过50位'
     }
 
     return {

@@ -20,7 +20,7 @@ export function getTimelineList () {
 export function addTimeline (data: Object) {
     return request({
       url: '/timeline/add',
-      method: 'get',
+      method: 'post',
       data
     })
   }
