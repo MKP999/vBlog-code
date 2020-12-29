@@ -155,7 +155,7 @@ const index = () => {
                                 { listData.length === 0 ? 
                                 (
                                     <div>
-                                        {loadingSkeleton.map((item, i) =>{
+                                        {loadingSkeleton.map(i =>{
                                             return (
                                                 <Skeleton key={i}  avatar title={false} loading={loading} paragraph={{ rows: 4 }} active></Skeleton>
                                             )
@@ -201,7 +201,7 @@ const index = () => {
                                             >   
                                                     <List.Item.Meta
                                                     avatar={<Avatar src={item.avatar} />}
-                                                    title={<Link to={detailUrl}>{item.title}</Link>}
+                                                    title={<Link to={'/blog/detail?id=' + item._id}>{item.title}</Link>}
                                                     description={item.description}
                                                     />
                                                     {item.content}
