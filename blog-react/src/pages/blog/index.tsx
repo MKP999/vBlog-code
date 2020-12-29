@@ -95,7 +95,7 @@ const index = () => {
 
     // 骨架
     const loadingSkeleton: [] = []
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 1; i++) {
         loadingSkeleton.push(1)
     }
 
@@ -157,7 +157,7 @@ const index = () => {
                                     <div>
                                         {loadingSkeleton.map((item, i) =>{
                                             return (
-                                                <Skeleton key={i}  avatar title={false} loading={loading} paragraph={{ rows: 3 }} active></Skeleton>
+                                                <Skeleton key={i}  avatar title={false} loading={loading} paragraph={{ rows: 4 }} active></Skeleton>
                                             )
                                         } )}
                                     </div>

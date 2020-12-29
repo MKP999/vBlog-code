@@ -65,7 +65,7 @@ const index = () => {
                      <Row gutter={30} style={{padding: '0 30px'}}>
                      {data.map(item => {
                             return (
-                                <Col span={12}>
+                                <Col key={item.id} span={12}>
                                     <a href={item.url}>
                                         <Card
                                             style={{marginBottom: '20px'}}
