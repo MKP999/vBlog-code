@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Skeleton, Card, Avatar, Col, Row, Divider, Button, Popconfirm, message, Modal, Form, Input, Spin, Space, List } from 'antd';
+import { Skeleton, Card, Avatar, Col, Row, Divider, Button, Popconfirm, message, Modal, Form, Input, Spin, Space, List  } from 'antd';
 import PageWrapper from "../../components/PageWrapper"
 import { LikeOutlined, MessageOutlined, ClockCircleOutlined, FolderOpenOutlined } from '@ant-design/icons';
 import { useHistory } from "umi";
@@ -22,6 +22,7 @@ const index = () => {
         <Space>
             {React.createElement(item.icon)}
             {item.text}
+            <Divider type="vertical" />
         </Space>
         )
 
@@ -43,22 +44,41 @@ const index = () => {
             {/* <Button className="create-center" shape="round" icon={<PlusCircleOutlined />} size="large" onClick={() => handleClick()}>
                 添加链接
             </Button> */}
-            <PageWrapper>
-                {JSON.stringify(blogInfo) === '{}' ? <div className="loading-box"><Spin size="large" /></div> : 
-                (
-                <Row gutter={16} style={{padding: '10px'}}>
-                    <div>
-                        {blogInfo.title}
-                        <List.Item>
-                            <IconText icon={LikeOutlined} text={blogInfo.like.length} key="list-vertical-like-o" />
-                            <IconText icon={MessageOutlined} text={blogInfo.comments.length} key="list-vertical-message" />
-                            <IconText icon={ClockCircleOutlined} text={timestampToTime(new Date(blogInfo.date).getTime())} key="list-vertical-message" />
-                            <IconText icon={FolderOpenOutlined} text={blogInfo.type} key="list-vertical-message" />
-                        </List.Item>
+             <Row>
+                <Col span={16} offset={4} >
+                    <div className="blog-detail">
+                        {JSON.stringify(blogInfo) === '{}' ? <div className="loading-box"><Spin size="large" /></div> : 
+                        (
+                        <Row style={{padding: '10px'}}>
+                            <div>
+                                <span className="blog-title">{blogInfo.title}</span>
+                                <List.Item>
+                                    <IconText icon={LikeOutlined} text={blogInfo.like.length} key="list-vertical-like-o" />
+                                    <IconText icon={MessageOutlined} text={blogInfo.comments.length} key="list-vertical-message" />
+                                    <IconText icon={ClockCircleOutlined} text={timestampToTime(new Date(blogInfo.date).getTime())} key="list-vertical-message" />
+                                    <IconText icon={FolderOpenOutlined} text={blogInfo.type} key="list-vertical-message" />
+                                </List.Item>
+                            </div>
+                            <Divider />
+                            {blogInfo.content}
+                        </Row>
+                        )}
                     </div>
-                </Row>
-                )}
-            </PageWrapper>
+                    {/* 留言板块 */}
+                    <div className="blog-detail">
+                        <div className="publish">
+                            <div className="context">
+                                    <img src="" alt="" className="avatar-img" />
+                                    <div className="text">
+                                        <span><b style={{fontSize: '18px'}}>K.P</b></span>
+                                        <p style={{color: '#ccc', paddingRight: '200px', fontSize: '16px'}}>6666</p>
+                                    </div>
+                                </div>
+                                <span style={{color: '#848484'}}>2020-12-31 00:00:00</span>
+                            </div>
+                        </div>
+                </Col>
+            </Row>
         </div>
     )
 }
