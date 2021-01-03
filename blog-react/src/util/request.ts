@@ -1,18 +1,21 @@
 import axios from 'axios'
+import { getStorageFn } from "../util/storageFn";
+import { message } from 'antd'
+import { history } from 'umi'
 
 // create an axios instance
 const service = axios.create({
   baseURL: 'http://localhost:5000/api', // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  timeout: 10000 // request timeout
 })
 
 // request interceptor
 service.interceptors.request.use(
   config => {
     // do something before request is sent
-    if (localStorage.getItem('blog_login')) {
-      config.headers.Authorization = localStorage.getItem('blog_login')
+    if (getStorageFn('blog_login')) {
+      config.headers.Authorization = getStorageFn('blog_login')
     }
     return config
   },

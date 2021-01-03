@@ -15,6 +15,10 @@ const ArticleSchema = new Schema({
         type: String,
         require: true
     },
+    text: {
+        type: String,
+        require: true
+    },
     type: {
         type: String,
         require: true,

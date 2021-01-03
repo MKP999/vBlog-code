@@ -4,14 +4,14 @@ import PageWrapper from "../../components/PageWrapper"
 import { PlusCircleOutlined, MailOutlined, BankOutlined, HeatMapOutlined, BranchesOutlined, FileTextOutlined } from '@ant-design/icons';
 
 import './index.scss'
+import { getStorageFn } from "../../util/storageFn";
 
 import { getBlogrollList, updateBlogroll, addBlogroll } from "../../server/blogrollApi";
 
 
 const index = () => {
-    
-    const blog_Info = localStorage.getItem('blog_Info')
-    const role = blog_Info ? JSON.parse(blog_Info).role : ''
+    const blog_Info = getStorageFn('blog_Info')
+    const role = blog_Info ? blog_Info.role : ''
 
     const { Meta } = Card;
     const [ loading, setLoading ] = useState(false)
@@ -90,10 +90,10 @@ const index = () => {
     // 取消
     const handleCancel = () => {
       setVisible(false);
-    };
+    }
 
     return (
-        <div style={{minHeight: 'calc(100vh - 114px)', height: '100%'}}>
+        <div className="blog-roll-page" style={{minHeight: 'calc(100vh - 114px)', height: '100%'}}>
             <Button className="create-center" shape="round" icon={<PlusCircleOutlined />} size="large" onClick={() => handleClick()}>
                 添加链接
             </Button>

@@ -1,18 +1,41 @@
 .blog-detail {
     background: #ffffff;
-    padding: 10px;
+    padding: 10px 24px 16px;
     margin: 15px 0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 1);
     border-radius: 2px;
     .blog-title {
         font-size: 36px;
-
     }
+    .detailblog-message {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .blog-content {
+        width: 100%;
+        margin: 20px 0;
+    }
+    .blog-des {
+        position: relative;
+        background: #f8f8f8;
+        border-radius: 4px;
+        padding: 5px 10px;
+        width: 100%;
+        .update-btn {
+            padding: 4px 6px;
+            cursor: pointer;
+            float: right;
+        }
+    }
+
     .publish {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         position: relative;
+        border-bottom: 1px solid #e8e8ee;
+        margin-top: 5px;
         .context {
             display: flex;
             flex-direction: row;
@@ -35,4 +58,38 @@
             }
         }
     }
+}
+
+.unlogin-check {
+    padding: 10px;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.uncomment {
+    padding: 10px;
+    font-size: 18px;
+    color: #c5c5c5;
+    text-align: center;
+}
+
+.avatar-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 2px solid #ffffff;
+}
+
+.message-input {
+    display: flex;
+    flex-direction: row;
+}
+
+.ant-row .ant-form-item {
+    width: 100%;
+}
+
+.ant-tag > .anticon + span {
+    margin-left: 0;
 }

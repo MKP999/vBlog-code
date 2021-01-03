@@ -61,6 +61,9 @@ exports.CreateArticle = async ctx => {
     if (body.content) {
         articleInfo.content = body.content
     }
+    if (body.text) {
+        articleInfo.text = body.text
+    }
     if (body.type) {
         articleInfo.type = body.type
     }
@@ -105,6 +108,9 @@ exports.UpdateArticle = async ctx => {
             }
             if (body.content) {
                 articleInfo.content = body.content
+            }
+            if (body.text) {
+                articleInfo.text = body.text
             }
             if (body.type) {
                 articleInfo.type = body.type
@@ -197,7 +203,7 @@ exports.CreateComment = async ctx => {
                 avatar: user.avatar
             }
             console.log('commentInfo => ', commentInfo)
-            article.comments.push(commentInfo)
+            article.comments.unshift(commentInfo)
             // 更新 缓存
             const updateArticle = await Article.findByIdAndUpdate(
                 {_id: id},
@@ -323,5 +329,30 @@ exports.GetNumber = async ctx => {
         ctx.body = { success: true, data: { total, commitNum, likeNum, classify} }
     } catch (error) {
         console.log(error)
+    }
+}
+
+/**
+ * @route DELETE api/articles/article?id=123
+ * @desc  删除文章
+ * @access 接口是私有的
+ */
+exports.DeleteArticle = async ctx => {
+    try {
+        const id = ctx.query.id
+        const article = await Article.findById(id)
+        if (article) {
+            if (ctx.state.user.role === 'admin') {
+                await Article.findByIdAndDelete(id)
+                ctx.status = 200
+                ctx.body = { success: true, data: [] }
+            } else {
+                ctx.status = 403
+                ctx.body = { success: false, msg: '该用户无权限访问此路由' }
+            }
+        }
+    } catch(err) {
+        ctx.status = 404
+        ctx.body = { success: false, msg: '文章不存在' }
     }
 }

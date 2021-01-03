@@ -5,10 +5,11 @@ import './index.scss'
 import { timestampToTime } from "../../util/time";
 
 import { getTimelineList, addTimeline } from "../../server/timelineApi";
+import { getStorageFn } from "../../util/storageFn";
 
 const index = () => {
-    const blog_Info = localStorage.getItem('blog_Info')
-    const role = blog_Info ? JSON.parse(blog_Info).role : ''
+    const blog_Info = getStorageFn('blog_Info')
+    const role = blog_Info ? blog_Info.role : ''
 
     const [ timeData, setTimeData ] = useState([])
     const [visible, setVisible] = useState(false)

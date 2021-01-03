@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, BackTop, List, Avatar, Space, Input, Button, Skeleton } from 'antd';
+import { Row, Col, BackTop, List, Avatar, Space, Input, Button, Skeleton, message, Modal, Form } from 'antd';
 import { UpCircleOutlined, FolderOpenOutlined, MessageOutlined, LikeOutlined, ClockCircleOutlined, PlusCircleOutlined  } from '@ant-design/icons';
 import avatar from "../../public/images/zp.png";
 import { history, Link } from 'umi'
 import { timestampToTime } from "../../util/time";
-import { getArticlesList, getArticlesData, getSearch } from "../../server/blogApi";
+import { getArticlesList, getArticlesData, getSearch, deleteArticle } from "../../server/blogApi";
+import { getStorageFn } from "../../util/storageFn";
 
 import './index.scss'
 
@@ -14,11 +15,16 @@ const index = () => {
     const [ data, setData ] = useState({})
     const [ typeList, setTypeList ] = useState([])
     const [ loading, setLoading ] = useState(false)
-
-    const blog_Info = localStorage.getItem('blog_Info')
-    const role = blog_Info ? JSON.parse(blog_Info).role : ''
+    const [ visible, setVisible ] = useState(false)
+    const [ deleteId, setdeleteId ] = useState('')
+    
+    const blog_Info = getStorageFn('blog_Info')
+    const role = blog_Info ? blog_Info.role : ''
 
     useEffect(() => {
+        getData()
+    }, [])
+    const getData = () => {
         setLoading(true)
         getArticlesList({ page: 1, limit: 10}).then(res => {
             res.data.data.forEach((item: {avatar: string}) => {
@@ -27,9 +33,12 @@ const index = () => {
             setListData(res.data.data)
             setLoading(false)
         })
-    }, [])
+    }
 
     useEffect(() => {
+        getTypeData()
+    }, [])
+    const getTypeData = () => {
         getArticlesData().then(res => {
             console.log(res.data)
             setData(res.data.data)
@@ -45,7 +54,7 @@ const index = () => {
             })
             setTypeList(list)
         })
-    }, [])
+    }
 
 
     const IconText = (item: { icon: any, text: any }) => (
@@ -82,15 +91,36 @@ const index = () => {
         history.push('/blog/edite')
     }
 
+    // 点击取消
+    const handleCancel = () => {
+        setVisible(false)
+    }
+
+    // 点击确认
+    const handleOk = () => {
+        deleteArticle({id: deleteId}).then(res => {
+            console.log(res.data)
+            if (res.data.success) {
+                message.success('删除成功')
+                setVisible(false)
+                getData()
+                getTypeData()
+            } else {
+                message.error('删除失败，请重试!')
+            }
+        })
+    }
+
     // 删除
     const handleDelete = (id: string) => {
-        console.log(id, '暂无接口')
+        setVisible(true)
+        setdeleteId(id)
     } 
 
     // 编辑
     const handleUpdate = (id:string) => {
         console.log(id)
-        history.push('/blog/edite')
+        history.push(`/blog/edite?id=${id}`)
     } 
 
     // 骨架
@@ -204,7 +234,7 @@ const index = () => {
                                                     title={<Link to={'/blog/detail?id=' + item._id}>{item.title}</Link>}
                                                     description={item.description}
                                                     />
-                                                    {item.content}
+                                                    <div className="list-text">{item.text}</div>
                                             </List.Item>
                                         )}
                                     />
@@ -215,6 +245,30 @@ const index = () => {
                     </Col>
                 </Row>
             </div>
+
+            <Modal
+                    maskClosable={false}
+                    title="删除文章"
+                    visible={visible}
+                    onOk={handleOk}
+                    okText="删除文章"
+                    cancelText="取消"
+                    onCancel={handleCancel}
+                    forceRender={true}
+                >   
+
+                    <Form>
+                        <Form.Item>
+                            <p>是否确认删除该文章{deleteId}</p>
+                        </Form.Item>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit" className="login-form-button" style={{float: 'right'}} loading={loading} 
+                            onClick={() => handleOk()}>
+                                删除文章
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </Modal>
 
             {/* 回到顶部 */}
             <BackTop>

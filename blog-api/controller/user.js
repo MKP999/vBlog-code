@@ -59,7 +59,7 @@ exports.Register = async ctx => {
         // 生成token
         const token = jwt.sign({
             data: payload
-          }, config.secretOrKeys, { expiresIn: '1h' })
+          }, config.secretOrKeys, { expiresIn: '24h' })
         ctx.body = {success: true, token: 'Bearer ' + token}
         // 客户端 cookies缓存token
         ctx.cookies.set('token', 'Bearer ' + token)
@@ -102,7 +102,7 @@ exports.Login = async ctx => {
             // 生成token
             const token = jwt.sign({
                 data: payload
-            }, config.secretOrKeys, { expiresIn: '1h' })
+            }, config.secretOrKeys, { expiresIn: '24h' })
             ctx.body = {success: true, token: 'Bearer ' + token}
             // 客户端 cookies缓存token
             ctx.cookies.set('token', 'Bearer ' + token)

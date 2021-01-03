@@ -4,6 +4,7 @@ import { UserOutlined, LockOutlined, UserAddOutlined, MailOutlined, WechatOutlin
 import FormWrapper from "../../components/FormWrapper";
 import { Link, history } from "umi";
 import './index.scss'
+import { getStorageFn, setStorageFn } from "../../util/storageFn";
 
 import { register, getInfo } from "../../server/homeApi";
 
@@ -18,7 +19,12 @@ const index = () => {
             console.log(res.data)
             if (res.data.success) {
                 message.success('注册成功')
-                localStorage.setItem('blog_login', res.data.token)
+                const params = {
+                    name: 'blog_login',
+                    value: res.data.token,
+                    expires: 1000 * 60 * 60 *24
+                }
+                setStorageFn(params)
                 getUserInfo()
             } else {
                 message.error(res.data.msg);
@@ -34,7 +40,12 @@ const index = () => {
     const getUserInfo = async () => {
         try {
             const res = await getInfo()
-            localStorage.setItem('blog_Info', JSON.stringify(res.data.data))
+            const params = {
+                name: 'blog_Info',
+                value: res.data.data,
+                expires: 1000 * 60 * 60 *24
+            }
+            setStorageFn(params)
             history.push('/home')
         } catch (error) {
             console.log(error)

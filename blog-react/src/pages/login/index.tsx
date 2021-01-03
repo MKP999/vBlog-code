@@ -6,6 +6,8 @@ import { Link, history } from "umi";
 import './index.scss'
 
 import { login, getInfo } from "../../server/homeApi";
+import { getStorageFn, setStorageFn } from "../../util/storageFn";
+
 
 const index = () => {
     const [ loading, setLoading ] = useState(false)
@@ -18,7 +20,13 @@ const index = () => {
             console.log(res.data)
             if (res.data.success) {
                 message.success('登录成功')
-                localStorage.setItem('blog_login', res.data.token)
+                // localStorage.setItem('blog_login', res.data.token)
+                const params = {
+                    name: 'blog_login',
+                    value: res.data.token,
+                    expires: 1000 * 60 * 60 *24
+                }
+                setStorageFn(params)
                 getUserInfo()
             } else {
                 message.error(res.data.msg);
@@ -34,7 +42,12 @@ const index = () => {
     const getUserInfo = async () => {
         try {
             const res = await getInfo()
-            localStorage.setItem('blog_Info', JSON.stringify(res.data.data))
+            const params = {
+                name: 'blog_Info',
+                value: res.data.data,
+                expires: 1000 * 60 * 60 *24
+            }
+            setStorageFn(params)
             history.push('/home')
         } catch (error) {
             console.log(error)

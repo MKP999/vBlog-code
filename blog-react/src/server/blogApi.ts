@@ -68,12 +68,14 @@ export function getArticle (params: Object) {
     /**
  * @desc 修改文章
  * @access 接口私有
+ * @params
  * @data  
  */
-export function updateArticle (data: Object) {
+export function updateArticle (params: object, data: Object) {
     return request({
       url: '/articles/article',
       method: 'put',
+      params,
       data
     })
   }
@@ -81,12 +83,13 @@ export function updateArticle (data: Object) {
       /**
  * @desc 点赞与取消点赞
  * @access 接口私有
- * @param  
+ * @params
  */
-export function getLike () {
+export function getLike (params: object) {
     return request({
       url: '/articles/like',
-      method: 'post'
+      method: 'post',
+      params
     })
   }
 
@@ -95,10 +98,11 @@ export function getLike () {
  * @access 接口私有
  * @data  
  */
-export function addArticleComment (data: Object) {
+export function addArticleComment (params: object, data: Object) {
     return request({
       url: '/articles/comment',
       method: 'post',
+      params,
       data
     })
   }
@@ -116,3 +120,16 @@ export function deleteArticleComment (params: Object) {
       params
     })
   }
+
+/**
+ * @desc 删除文章
+ * @access 接口私有
+ * @params  
+ */
+export function deleteArticle (params: Object) {
+  return request({
+    url: '/articles/article',
+    method: 'delete',
+    params
+  })
+}

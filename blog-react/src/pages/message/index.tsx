@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { Divider, Row, Col, BackTop, Pagination, message, Modal, Spin } from "antd";
+import { Divider, Row, Col, BackTop, Pagination, message, Modal, Spin, Form, Button } from "antd";
 import { MessageOutlined, UpCircleOutlined } from '@ant-design/icons';
 import MessageForm from "../../components/MessageForm";
 import { timestampToTime } from "../../util/time";
 
 import './index.scss'
+import { getStorageFn } from "../../util/storageFn";
 import { getMessagesList, addMessage, addMessageComment, deleteMessage } from "../../server/messageApi";
 
 const index = () => {
 
-        const blog_Info = localStorage.getItem('blog_Info')
-        const role = blog_Info ? JSON.parse(blog_Info).role : ''
+        const blog_Info = getStorageFn('blog_Info')
+        const role = blog_Info ? blog_Info.role : ''
 
         const [ messages, setMessage ] = useState([])
         const [ total, setTotal ] = useState(0)
@@ -19,6 +20,7 @@ const index = () => {
 
         const [visible, setVisible] = useState(false)
         const [confirmLoading, setConfirmLoading] = useState(false)
+        const [loading, setLoading] = useState(false)
 
         useEffect(() => {
             getData()
@@ -116,10 +118,12 @@ const index = () => {
       }
     
       const handleOk = () => {
-        setConfirmLoading(true);
+        setConfirmLoading(true)
+        setLoading(true)
         deleteMessage({id: messageId}).then(res => {
             setVisible(false);
-            setConfirmLoading(false);
+            setConfirmLoading(false)
+            setLoading(false)
             getData()
         })
       };
@@ -142,7 +146,7 @@ const index = () => {
                         {messages.map(item => {
                             return (
                                 // 留言信息
-                                <div key={item._id} className="message" onClick={() => handleDelete(item._id)} >
+                                <div key={item._id} className="message" onDoubleClick={() => handleDelete(item._id)} >
                                     <div className="publish">
                                         <div className="context">
                                             <img src={item.avatar} alt="" className="avatar-img" />
@@ -199,7 +203,15 @@ const index = () => {
                     confirmLoading={confirmLoading}
                     onCancel={handleCancel}
                 >
-                    <p>是否删除该留言</p>
+                    <Form.Item>
+                            <p>是否删除该留言</p>
+                        </Form.Item>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit" className="login-form-button" style={{float: 'right'}} loading={loading} 
+                            onClick={() => handleOk()}>
+                                删除留言
+                            </Button>
+                        </Form.Item>
                 </Modal>
                 {/* 留言区 */}
                 <Divider style={{color: '#fff', borderColor: '#fff', fontSize: '18px'}}>留言</Divider>
