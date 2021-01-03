@@ -1,13 +1,23 @@
 
+import { history } from 'umi'
+import { message } from "antd"
+
+interface Options {
+  name?: any,
+  value?: any,
+  expires?: string,
+  startTime?: string
+}
+
 // 设置存储值
-export const setStorageFn = (params: object) => {
+export const setStorageFn = (params: object):void => {
   let obj = {
     name: '',
     value: '',
     expires: '', // 毫秒级
     startTime: new Date().getTime(), //记录何时将值存入缓存，毫秒级
   };
-  let options = {};
+  let options:Options = {};
   //将obj和传进来的params合并
   Object.assign(options, obj, params);
   if (options.expires) {
@@ -25,9 +35,14 @@ export const setStorageFn = (params: object) => {
   }
 }
 
+interface Item {
+  startTime?: string,
+  value?: string
+}
+
 // 获取存储值
-export const getStorageFn = (name:string) => {
-  let item = localStorage.getItem(name);
+export const getStorageFn = (name:string):any => {
+  let item: = localStorage.getItem(name);
     //先将拿到的试着进行json转为对象的形式
     try {
       item = JSON.parse(item);
@@ -41,7 +56,9 @@ export const getStorageFn = (name:string) => {
       //何时将值取出减去刚存入的时间，与item.expires比较，如果大于就是过期了，如果小于或等于就还没过期
       if (date - item.startTime > item.expires) {
         //缓存过期，清除缓存，返回false
-        localStorage.removeItem(name);
+        localStorage.removeItem(name)
+        message.error('登录超时, 请重新登录!')
+        history.replace('/login')
         return false;
       } else {
         //缓存未过期，返回值
