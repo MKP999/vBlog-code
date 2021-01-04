@@ -86,5 +86,8 @@ export default defineConfig({
   ],
   cssModulesTypescriptLoader: {
     mode: 'emit',
-  }
+  },
+  links: [
+    {rel: 'icon', href: './static/zp.png'}
+  ]
 });
