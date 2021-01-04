@@ -1,21 +1,30 @@
 import React, { useState, useEffect } from 'react'
-import { Skeleton, Card, Avatar, Col, Row, Divider, Button, Popconfirm, message, Modal, Form, Input, Spin, Space, List, BackTop, Tag } from 'antd';
-import PageWrapper from "../../components/PageWrapper"
+import { Col, Row, Divider, Button, message, Form, Input, Spin, Space, BackTop, Tag } from 'antd';
 import { LikeOutlined, MessageOutlined, ClockCircleOutlined, FolderOpenOutlined, UpCircleOutlined, VerifiedOutlined } from '@ant-design/icons';
 import { useHistory, Link, history } from "umi";
 import './index.scss'
 import { timestampToTime } from "../../util/time";
 
 import { getStorageFn } from "../../util/storageFn";
+import { detailBlogItem } from "../../util/interface";
 import { getArticle, getLike, addArticleComment } from "../../server/blogApi";
 
 
 const index = () => {
-    const blog_Info = getStorageFn('blog_Info')
-    const role = blog_Info ? blog_Info.role : ''
+    const blog_Info:{role:string, _id:string, avatar:string} = getStorageFn('blog_Info')
+    const role:string = blog_Info ? blog_Info.role : ''
     const { location } = useHistory()
 
-    const [ blogInfo, setBlogInfo ] = useState({})
+    const [ blogInfo, setBlogInfo ] = useState({
+        _id: '',
+        type: '',
+        title: '',
+        content: '',
+        text: '',
+        like: [],
+        comments: [],
+        date: ''
+    })
     const [ liked, setLiked ] = useState(false)
     const [ likeText, setLikeText ] = useState('点赞')
     const [ loading, setLoading ] = useState(false)
@@ -61,7 +70,7 @@ const index = () => {
     }
 
     // 点击评论
-    let timer = null
+    let timer:any = null
     const onFinish = (e:{content:string}) => {
         if (!e.content) {
             message.error('请输入评论内容!')
@@ -104,12 +113,10 @@ const index = () => {
             message.error('您需要登录后才点赞。')
         }
     }
+    
 
     return (
         <div style={{minHeight: 'calc(100vh - 114px)', height: '100%'}}>
-            {/* <Button className="create-center" shape="round" icon={<PlusCircleOutlined />} size="large" onClick={() => handleClick()}>
-                添加链接
-            </Button> */}
              <Row>
                 <Col span={16} offset={4} >
                     <div className="blog-detail">
@@ -131,9 +138,6 @@ const index = () => {
                                     </span>}
                                 </div>
                             </Col>
-                            {/* <div className="blog-content">
-                                {blogInfo.content}
-                            </div> */}
                             <div className="blog-content" dangerouslySetInnerHTML={{__html: blogInfo.content}}></div>
                                 <Tag icon={<LikeOutlined />} color={liked ? '#cccccc' : '#3490dc'} 
                                 style={{fontSize: '16px', padding: '2px 5px', cursor: 'pointer'}} onClick={() => handleLike()} > {likeText}</Tag>
@@ -166,7 +170,7 @@ const index = () => {
                         </div>
                         {/* 留言区 */}
                         {
-                            blogInfo.comments && (blogInfo.comments.length ? (blogInfo.comments.map((item:{_id: string,avatar: string, name:string, content: string, date: string}) => {
+                            blogInfo.comments && (blogInfo.comments.length ? (blogInfo.comments.map((item:detailBlogItem) => {
                                 return (
                                     <div className="publish" key={item._id}>
                                     <div className="context">

@@ -6,7 +6,7 @@ import { Link, history } from "umi";
 import './index.scss'
 
 import { login, getInfo } from "../../server/homeApi";
-import { getStorageFn, setStorageFn } from "../../util/storageFn";
+import { setStorageFn } from "../../util/storageFn";
 
 
 const index = () => {

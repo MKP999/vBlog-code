@@ -4,7 +4,7 @@ import { UserOutlined, LockOutlined, UserAddOutlined, MailOutlined, WechatOutlin
 import FormWrapper from "../../components/FormWrapper";
 import { Link, history } from "umi";
 import './index.scss'
-import { getStorageFn, setStorageFn } from "../../util/storageFn";
+import { setStorageFn } from "../../util/storageFn";
 
 import { register, getInfo } from "../../server/homeApi";
 

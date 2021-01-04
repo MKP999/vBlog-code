@@ -3,13 +3,13 @@ import { Input, Form, Button } from "antd";
 import './index.scss'
 
 
-const index = (props: {handleSubmit: Function, type: String}) => {
+const index = (props: {handleSubmit: Function, type: String, loading:boolean}) => {
     const { TextArea } = Input
     const [ form ] = Form.useForm()
 
-    const onFinish = (values: any) => {
+    const onFinish = (values: object):void => {
         console.log(props.type)
-        props.handleSubmit({...values, type: props.type})
+        props.handleSubmit({...values, type: props.type, loading: props.loading})
         form.setFieldsValue({
             name: '',
             email: '',
@@ -17,7 +17,7 @@ const index = (props: {handleSubmit: Function, type: String}) => {
         })
     }
     
-    const onFinishFailed = (errorInfo: any) => {
+    const onFinishFailed = (errorInfo: object):void => {
     console.log('Failed:', errorInfo);
     }
 
@@ -64,7 +64,7 @@ const index = (props: {handleSubmit: Function, type: String}) => {
                         <TextArea rows={4} placeholder="有什么想对站长说的呢~" />
                     </Form.Item>
                     <Form.Item>
-                        <Button style={{background: '#fff', color: '#000', float: 'right'}} htmlType="submit">
+                        <Button style={{background: '#fff', color: '#000', float: 'right'}} htmlType="submit" loading={props.loading}>
                             {props.type === 'message' ? '畅言一番' : '发言'}
                         </Button>
                     </Form.Item>

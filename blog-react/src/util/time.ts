@@ -1,5 +1,5 @@
 // js时间戳转化成日期格式
-export function timestampToTime (timestamp) {
+export function timestampToTime (timestamp: number):string {
     const date = new Date(timestamp) // 时间戳为10位需*1000，时间戳为13位的话不需乘1000
     const Y = date.getFullYear() + '-'
     const M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-'
@@ -10,11 +10,11 @@ export function timestampToTime (timestamp) {
     return Y + M + D + h + m + s
   }
   
-  export function formatSeconds (value) {
+  export function formatSeconds (value:string):string {
       // 秒数转化成时间段
-      let secondTime = parseInt(value); // 秒
-      let minuteTime = 0;// 分
-      let hourTime = 0;// 小时
+      let secondTime:number = parseInt(value); // 秒
+      let minuteTime:number = 0;// 分
+      let hourTime:number = 0;// 小时
       if (secondTime > 60) {// 如果秒数大于60，将秒数转换成整数
           // 获取分钟，除以60取整数，得到整数分钟
           minuteTime = parseInt(secondTime / 60);

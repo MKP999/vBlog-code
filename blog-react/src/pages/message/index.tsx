@@ -6,6 +6,7 @@ import { timestampToTime } from "../../util/time";
 
 import './index.scss'
 import { getStorageFn } from "../../util/storageFn";
+import { messageItem } from "../../util/interface";
 import { getMessagesList, addMessage, addMessageComment, deleteMessage } from "../../server/messageApi";
 
 const index = () => {
@@ -18,9 +19,10 @@ const index = () => {
         const [ page, setPage ] = useState(1)
         const [ messageId, setMessageId ] = useState('')
 
-        const [visible, setVisible] = useState(false)
-        const [confirmLoading, setConfirmLoading] = useState(false)
-        const [loading, setLoading] = useState(false)
+        const [ visible, setVisible ] = useState(false)
+        const [ confirmLoading, setConfirmLoading ] = useState(false)
+        const [ loading, setLoading ] = useState(false)
+        const [ btnLoading, setBtnLoading] = useState(false)
 
         useEffect(() => {
             getData()
@@ -33,10 +35,10 @@ const index = () => {
                 limit: 10
             }
             getMessagesList(params).then(res => {
-                res.data.data.forEach((item: Object) =>{
+                res.data.data.forEach((item: messageItem) =>{
                     item.avatar = `http://q1.qlogo.cn/g?b=qq&nk=${item.email.slice(0, -7)}&s=100`
                     item.reply = false
-                    item.comments.forEach((child: Object) => {
+                    item.comments.forEach((child: {avatar:string,email:string}) => {
                         child.avatar = `http://q1.qlogo.cn/g?b=qq&nk=${child.email.slice(0, -7)}&s=100`
                     })
                 })
@@ -50,7 +52,7 @@ const index = () => {
         setMessageId(id)
         // 拷贝 注意深浅拷贝问题
         const messageClone = [...messages]
-        messageClone.forEach(item => {
+        messageClone.forEach((item: {reply:boolean, _id:string}) => {
             item.reply = false
             if (item._id === id) {
                 item.reply = true
@@ -62,7 +64,7 @@ const index = () => {
       // 取消发言
       const handleUnreply = (id: string) => {
         const messageClone = [...messages]
-        messageClone.forEach(item => {
+        messageClone.forEach((item: {reply:boolean, _id:string}) => {
             item.reply = false
             if (item._id === id) {
                 item.reply = false
@@ -72,10 +74,11 @@ const index = () => {
       }
       
       // 提交留言表单
-      const handleSubmit = (value: {name: string, email: string, content: string, type:string}) => {
-        const { name, email, content, type } = value
+      const handleSubmit = (value: {name: string, email: string, content: string, type:string, loading: boolean}) => {
+        const { name, email, content, type, loading } = value
         let params = {}
         let data = {}
+        setBtnLoading(true)
         if (type === 'message') {
             //留言
             data = {
@@ -85,6 +88,7 @@ const index = () => {
             }
             addMessage(data).then(res => {
                 if (res.data.success) {
+                    setBtnLoading(false)
                     message.success('留言成功')
                     setPage(1)
                     getData()
@@ -99,6 +103,7 @@ const index = () => {
                 content
             }
             addMessageComment(params, data).then(res => {
+                setBtnLoading(false)
                 getData()
             })
         }
@@ -143,7 +148,7 @@ const index = () => {
                 ) : 
                 (
                     <div className="comment-wrapper">
-                        {messages.map(item => {
+                        {messages.map((item: messageItem) => {
                             return (
                                 // 留言信息
                                 <div key={item._id} className="message" onDoubleClick={() => handleDelete(item._id)} >
@@ -164,12 +169,12 @@ const index = () => {
                                         <div style={{padding: '10px 50px', position: 'relative'}}>
                                             <div style={{position: 'absolute', top: '0', right: '50px', cursor: 'pointer', color: '#3dabce'}} onClick={() => handleUnreply(item._id)}>取消发言</div>
                                             <Divider style={{margin: '15px'}} />
-                                            <MessageForm type="comment" handleSubmit={handleSubmit} />
+                                            <MessageForm type="comment" loading={btnLoading} handleSubmit={handleSubmit} />
                                         </div>) : ''
                                     }
                                     
                                     {/* 评论信息 */}
-                                    {item.comments.map(child => {
+                                    {item.comments.map((child: {_id:string, avatar:string, content: string, date:string, name:string}) => {
                                         return (
                                             <div key={child._id} className="comment">
                                                 <div className="context">
@@ -216,7 +221,7 @@ const index = () => {
                 {/* 留言区 */}
                 <Divider style={{color: '#fff', borderColor: '#fff', fontSize: '18px'}}>留言</Divider>
                  {/* 留言表单 */}
-                 <MessageForm  type="message" handleSubmit={handleSubmit} />
+                 <MessageForm type="message" loading={btnLoading} handleSubmit={handleSubmit} />
                 </Col>
             </Row>
 

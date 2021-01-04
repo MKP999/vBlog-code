@@ -18,8 +18,8 @@ const index = () => {
     const [ visible, setVisible ] = useState(false)
     const [ deleteId, setdeleteId ] = useState('')
     
-    const blog_Info = getStorageFn('blog_Info')
-    const role = blog_Info ? blog_Info.role : ''
+    const blog_Info:{role:string} = getStorageFn('blog_Info')
+    const role:string = blog_Info ? blog_Info.role : ''
 
     useEffect(() => {
         getData()
@@ -35,6 +35,12 @@ const index = () => {
         })
     }
 
+    interface obj {
+        id: number,
+        type: string,
+        count: number
+    }
+
     useEffect(() => {
         getTypeData()
     }, [])
@@ -42,10 +48,10 @@ const index = () => {
         getArticlesData().then(res => {
             console.log(res.data)
             setData(res.data.data)
-            const list = []
+            const list:[] = []
             const arr = Object.keys(res.data.data.classify)
             arr.forEach((item, index) => {
-                const obj = { 
+                const obj:obj = { 
                     id: index,
                     type: item,
                     count: res.data.data.classify[item]
@@ -133,9 +139,6 @@ const index = () => {
      const getDetail = (id: string) => {
          console.log(id)
      }
-
-     // 文章详情页面
-     const detailUrl = '/blog/detail'
 
     return (
         <div style={{minHeight: 'calc(100vh - 114px)', height: '100%'}}>

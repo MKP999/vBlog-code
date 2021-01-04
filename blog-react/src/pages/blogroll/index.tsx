@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { Skeleton, Card, Avatar, Col, Row, Divider, Button, Popconfirm, message, Modal, Form, Input, Spin } from 'antd';
 import PageWrapper from "../../components/PageWrapper"
-import { PlusCircleOutlined, MailOutlined, BankOutlined, HeatMapOutlined, BranchesOutlined, FileTextOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined, BankOutlined, HeatMapOutlined, BranchesOutlined, FileTextOutlined } from '@ant-design/icons';
 
 import './index.scss'
-import { getStorageFn } from "../../util/storageFn";
+import { getStorageFn } from "../../util/storageFn"
+import { blogRollItem } from "../../util/interface"
 
 import { getBlogrollList, updateBlogroll, addBlogroll } from "../../server/blogrollApi";
 
 
 const index = () => {
-    const blog_Info = getStorageFn('blog_Info')
-    const role = blog_Info ? blog_Info.role : ''
+    const blog_Info:{role:string} = getStorageFn('blog_Info')
+    const role:string = blog_Info ? blog_Info.role : ''
 
     const { Meta } = Card;
     const [ loading, setLoading ] = useState(false)
@@ -149,7 +150,7 @@ const index = () => {
                 {list.length === 0 ? <div className="loading-box"><Spin size="large" /></div> : 
                 (
                     <Row gutter={16} style={{padding: '10px'}}>
-                    {list.map(item => {
+                    {list.map((item:blogRollItem) => {
                         return (
                             <Col key={item._id} span={8}>
                                 <Card style={{ width: '100%', marginTop: 16 }} >
@@ -175,7 +176,7 @@ const index = () => {
                 {list.length === 0 ? <div className="loading-box"><Spin size="large" /></div> : 
                 (
                 <Row gutter={16} style={{padding: '10px'}}>
-                    {checklist.map(item => {
+                    {checklist.map((item:blogRollItem) => {
                         return (
                             <Col key={item._id} span={8}>
                                 <Popconfirm

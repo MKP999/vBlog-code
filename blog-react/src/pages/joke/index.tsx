@@ -7,7 +7,11 @@ import "./index.scss"
 import { getJoke } from "../../server/jokeApi";
 
 const index = () => {
-    const [ joke, setJoke ] = useState({})
+    const [ joke, setJoke ] = useState({
+        text: '',
+        images: '',
+        video: ''
+    })
     const [ page, setPage ] = useState(Math.floor(Math.random()* 10000))
 
     useEffect(() => {

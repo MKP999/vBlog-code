@@ -35,14 +35,9 @@ export const setStorageFn = (params: object):void => {
   }
 }
 
-interface Item {
-  startTime?: string,
-  value?: string
-}
-
 // 获取存储值
 export const getStorageFn = (name:string):any => {
-  let item: = localStorage.getItem(name);
+  let item:any = localStorage.getItem(name);
     //先将拿到的试着进行json转为对象的形式
     try {
       item = JSON.parse(item);

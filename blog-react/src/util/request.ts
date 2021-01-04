@@ -1,7 +1,5 @@
 import axios from 'axios'
-import { getStorageFn } from "../util/storageFn";
-import { message } from 'antd'
-import { history } from 'umi'
+import { getStorageFn } from "../util/storageFn"
 
 // create an axios instance
 const service = axios.create({

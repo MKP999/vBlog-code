@@ -4,16 +4,16 @@ const { Header, Content, Footer } = Layout;
 import { HomeOutlined, UnorderedListOutlined, PlayCircleOutlined, CalendarOutlined, LinkOutlined, FieldTimeOutlined, DingtalkOutlined, LoginOutlined, UserAddOutlined, UserOutlined, DownOutlined, LogoutOutlined } from '@ant-design/icons';
 import { Link, useHistory, history } from 'umi'
 import './index.scss'
-import { setStorageFn, getStorageFn, removeStorageFn } from "../../util/storageFn";
+import { getStorageFn, removeStorageFn } from "../../util/storageFn";
 
 const index = (props: { children: React.ReactNode }) => {
     const { location } = useHistory()
 
     // 获取用户信息
-    const blog_Info = getStorageFn('blog_Info')
-    const name = blog_Info ? blog_Info.username : ''
+    const blog_Info:{username: string} = getStorageFn('blog_Info')
+    const name:string = blog_Info ? blog_Info.username : ''
 
-    const blogLogin = getStorageFn('blog_login')
+    const blogLogin:string | boolean = getStorageFn('blog_login')
 
     // 点击出现退出登录
     const menu = (
@@ -24,7 +24,7 @@ const index = (props: { children: React.ReactNode }) => {
         </Menu>
       )
 
-      const logout = () => {
+      const logout = ():void => {
           removeStorageFn('blog_Info')
           removeStorageFn('blog_login')
           history.push('/home')

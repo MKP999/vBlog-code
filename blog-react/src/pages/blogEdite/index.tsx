@@ -50,7 +50,7 @@ const index = () => {
     // 获取分类个数
     useEffect(() => {
         getArticlesData().then(res => {
-            const tabArr = Object.keys(res.data.data.classify)
+            const tabArr:string[] = Object.keys(res.data.data.classify)
             setTabs(tabArr)
         })
     }, [])

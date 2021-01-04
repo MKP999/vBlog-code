@@ -6,10 +6,11 @@ import { timestampToTime } from "../../util/time";
 
 import { getTimelineList, addTimeline } from "../../server/timelineApi";
 import { getStorageFn } from "../../util/storageFn";
+import { timelineItem } from "../../util/interface";
 
 const index = () => {
-    const blog_Info = getStorageFn('blog_Info')
-    const role = blog_Info ? blog_Info.role : ''
+    const blog_Info:{role:string} = getStorageFn('blog_Info')
+    const role:string = blog_Info ? blog_Info.role : ''
 
     const [ timeData, setTimeData ] = useState([])
     const [visible, setVisible] = useState(false)
@@ -27,11 +28,6 @@ const index = () => {
             setTimeData(res.data.data)
         })
     }
-    // 点击添加
-    // const handleClick = () => {
-
-
-    // }
 
     // 打开添加时光轴弹窗
     const handleClick = () => {
@@ -108,7 +104,7 @@ const index = () => {
                 {timeData.length === 0 ? <div className="loading-box"><Spin style={{color: '#001529'}} size="large" /></div> : 
                 (
                     <Timeline mode="alternate" className="timeline-wrapper">
-                        {timeData.map(item => {
+                        {timeData.map((item: timelineItem) => {
                             return (
                                 <Timeline.Item key={item._id} color={item.color}>
                                     <div className="header">
