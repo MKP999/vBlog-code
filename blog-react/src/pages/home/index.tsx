@@ -50,7 +50,7 @@ const index = () => {
             {   
                 id: 1,
                 imageUrl: blogBg,
-                url: '/blog',
+                url: '/blog/list',
                 type: '博客',
                 etype: 'BLOG',
                 describe: '记录美好技术————技博'
@@ -76,7 +76,7 @@ const index = () => {
             {   
                 id: 4,
                 imageUrl: linkBg,
-                url: '/blog',
+                url: '/blogroll',
                 type: '友情链接',
                 etype: 'BLOG',
                 describe: '链接的不仅是友情，还有各种情...'
@@ -84,7 +84,7 @@ const index = () => {
             {
                 id: 5,
                 imageUrl: timelineBg,
-                url: '/production',
+                url: '/timeline',
                 type: '时光轴',
                 etype: 'BLOG',
                 describe: '光阴似箭, 日月如梭...后面忘了'
@@ -92,7 +92,7 @@ const index = () => {
             {   
                 id: 6,
                 imageUrl: jokeBg,
-                url: '/message',
+                url: '/joke',
                 type: '每日段子',
                 etype: 'BLOG',
                 describe: '每日一条小段子, 生命多活一阵子, 双押？'

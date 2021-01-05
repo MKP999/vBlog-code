@@ -5,7 +5,7 @@ import { getStorageFn } from "../util/storageFn"
 const service = axios.create({
   baseURL: 'http://localhost:5000/api', // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 10000 // request timeout
+  timeout: 15000 // request timeout
 })
 
 // request interceptor

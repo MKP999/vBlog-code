@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Col, Row, Divider, Button, message, Form, Input, Spin, Space, BackTop, Tag } from 'antd';
+import { Col, Row, Divider, Button, message, Form, Input, Spin, Space, BackTop, Tag, Skeleton } from 'antd';
 import { LikeOutlined, MessageOutlined, ClockCircleOutlined, FolderOpenOutlined, UpCircleOutlined, VerifiedOutlined } from '@ant-design/icons';
 import { useHistory, Link, history } from "umi";
 import './index.scss'
@@ -25,6 +25,7 @@ const index = () => {
         comments: [],
         date: ''
     })
+    const [ request, setRequest ] = useState(true)
     const [ liked, setLiked ] = useState(false)
     const [ likeText, setLikeText ] = useState('点赞')
     const [ loading, setLoading ] = useState(false)
@@ -45,6 +46,7 @@ const index = () => {
     // 获取数据
     const getData = () => {
         const id = location.query.id
+        setRequest(true)
         getArticle({id}).then(res => {
             console.log(res.data)
             setBlogInfo(res.data.data)
@@ -60,6 +62,7 @@ const index = () => {
                     setLiked(false)
                 }
             }
+            setRequest(false)
         })
     }
 
@@ -120,7 +123,8 @@ const index = () => {
              <Row>
                 <Col span={16} offset={4} >
                     <div className="blog-detail">
-                        {JSON.stringify(blogInfo) === '{}' ? <div className="loading-box"><Spin size="large" /></div> : 
+                         {/* <div className="loading-box"><Spin size="large" /></div> */}
+                        {request ? <Skeleton title={true} loading={request} paragraph={{ rows: 5 }} active /> : 
                         (
                         <Row>
                             <Col style={{padding: '10px', width: '100%'}}>

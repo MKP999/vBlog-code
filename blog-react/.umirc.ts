@@ -2,9 +2,9 @@ import { defineConfig } from 'umi';
 
 export default defineConfig({
   history: {
-    type: 'hash'
+    type: 'browser'
   },
-  publicPath: './',
+  publicPath: '/',
   nodeModulesTransform: {
     type: 'none',
   },
@@ -88,6 +88,6 @@ export default defineConfig({
     mode: 'emit',
   },
   links: [
-    {rel: 'icon', href: './static/zp.png'}
+    {rel: 'icon', href: './static/Ckp.png'}
   ]
 });

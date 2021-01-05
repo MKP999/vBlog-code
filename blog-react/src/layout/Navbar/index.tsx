@@ -5,6 +5,7 @@ import { HomeOutlined, UnorderedListOutlined, PlayCircleOutlined, CalendarOutlin
 import { Link, useHistory, history } from 'umi'
 import './index.scss'
 import { getStorageFn, removeStorageFn } from "../../util/storageFn";
+import logo from "../../../public/static/Ckp.png";
 
 const index = (props: { children: React.ReactNode }) => {
     const { location } = useHistory()
@@ -43,7 +44,7 @@ const index = (props: { children: React.ReactNode }) => {
             <Header>
                 <div className="navigation">
                     <div className="logo">
-                        BLOG
+                        <img src={logo} alt="" className="img" />
                     </div>
                     <Menu theme="dark" mode="horizontal" selectedKeys={[location.pathname]}>
                         <Menu.Item key="/home" icon={<HomeOutlined />}>
