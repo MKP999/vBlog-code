@@ -2,9 +2,9 @@ import { defineConfig } from 'umi';
 
 export default defineConfig({
   history: {
-    type: 'browser'
+    type: 'hash'
   },
-  publicPath: '/',
+  publicPath: './',
   nodeModulesTransform: {
     type: 'none',
   },
