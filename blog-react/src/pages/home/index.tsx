@@ -182,6 +182,10 @@ const index = () => {
                                     <td>微信：</td>
                                     <td>17620004641</td>
                                 </tr>
+                                <tr>
+                                    <td>github：</td>
+                                    <td><a href="https://github.com/MKP999">https://github.com/MKP999</a></td>
+                                </tr>
                             </tbody>
                         </table>
                     </ul>

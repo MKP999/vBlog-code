@@ -93,6 +93,12 @@ const index = () => {
       setVisible(false);
     }
 
+    // 点击进入该网站
+    const enterUrl = (url:string) => {
+        console.log(url)
+        window.open(url)
+    }
+
     return (
         <div className="blog-roll-page" style={{minHeight: 'calc(100vh - 114px)', height: '100%'}}>
             <Button className="create-center" shape="round" icon={<PlusCircleOutlined />} size="large" onClick={() => handleClick()}>
@@ -153,7 +159,7 @@ const index = () => {
                     {list.map((item:blogRollItem) => {
                         return (
                             <Col key={item._id} span={8}>
-                                <Card style={{ width: '100%', marginTop: 16 }} >
+                                <Card style={{ width: '100%', marginTop: 16, cursor: 'pointer'}} onClick={() => enterUrl(item.url)}>
                                     <Skeleton loading={loading} avatar active>
                                         <Meta
                                             avatar={
