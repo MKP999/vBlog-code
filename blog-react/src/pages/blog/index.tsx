@@ -46,7 +46,6 @@ const index = () => {
     }, [])
     const getTypeData = () => {
         getArticlesData().then(res => {
-            console.log(res.data)
             setData(res.data.data)
             const list:[] = []
             const arr = Object.keys(res.data.data.classify)
@@ -82,9 +81,7 @@ const index = () => {
     
     // 搜索
     const onSearch = (value: String) => {
-        console.log(value)
         getSearch({title: value}).then(res => {
-            console.log(res.data)
             res.data.data.forEach((item: {avatar: string}) => {
                 item.avatar = 'http://q1.qlogo.cn/g?b=qq&nk=993646298&s=100'
             })
@@ -105,7 +102,6 @@ const index = () => {
     // 点击确认
     const handleOk = () => {
         deleteArticle({id: deleteId}).then(res => {
-            console.log(res.data)
             if (res.data.success) {
                 message.success('删除成功')
                 setVisible(false)
@@ -125,7 +121,6 @@ const index = () => {
 
     // 编辑
     const handleUpdate = (id:string) => {
-        console.log(id)
         history.push(`/blog/edite?id=${id}`)
     } 
 

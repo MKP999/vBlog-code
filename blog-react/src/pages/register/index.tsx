@@ -13,10 +13,8 @@ const index = () => {
 
       // 注册
     const onFinish = (values: any) => {
-        console.log('Success:', values);
         setLoading(true)
         register(values).then((res: {data: {success: Boolean, msg: string, token: string}}) => {
-            console.log(res.data)
             if (res.data.success) {
                 message.success('注册成功')
                 const params = {
@@ -53,7 +51,7 @@ const index = () => {
     }
 
     return (
-        <div style={{height: 'calc(100vh - 114px)'}}>
+        <div style={{minHeight: 'calc(100vh - 114px)', height: '100%'}}>
             <FormWrapper>
                 <div className="login-title">
                     <UserAddOutlined /> 注册

@@ -4,7 +4,7 @@ export default defineConfig({
   history: {
     type: 'hash'
   },
-  publicPath: './',
+  publicPath: '/',
   nodeModulesTransform: {
     type: 'none',
   },
@@ -89,5 +89,8 @@ export default defineConfig({
   },
   links: [
     {rel: 'icon', href: './static/Ckp.png'}
-  ]
+  ],
+  dynamicImport: {
+    loading: '@/Loading',
+  }
 });

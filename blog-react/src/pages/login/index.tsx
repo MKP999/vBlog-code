@@ -14,10 +14,8 @@ const index = () => {
       
     // 提交表单
     const onFinish = (values: any) => {
-        console.log('Success:', values);
         setLoading(true)
         login(values).then((res: {data: {success: Boolean, msg: string, token: string}}) => {
-            console.log(res.data)
             if (res.data.success) {
                 message.success('登录成功')
                 // localStorage.setItem('blog_login', res.data.token)
@@ -54,7 +52,7 @@ const index = () => {
         }
     }
     return (
-        <div style={{height: 'calc(100vh - 114px)'}}>
+        <div style={{minHeight: 'calc(100vh - 114px)', height: '100%'}}>
             <FormWrapper>
                 <div className="login-title">
                     <LoginOutlined /> 登录

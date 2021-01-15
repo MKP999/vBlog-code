@@ -81,7 +81,6 @@ const index = () => {
         }
         // 选择一个类型
         const changeRadio = (e:{ target: {value: string}}) => {
-            console.log(e.target.value)
             setType(e.target.value)
             form.setFieldsValue({
                 type: e.target.value
@@ -126,7 +125,6 @@ const index = () => {
                 } else {
                     res = await addArticle(data)
                 }
-                console.log(res.data)
                 setVisible(false);
                 setConfirmLoading(false);
                 setLoading(false)

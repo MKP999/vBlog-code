@@ -4,12 +4,12 @@ import { UpCircleOutlined } from '@ant-design/icons';
 import { Link } from 'umi'
 import './index.scss'
 import avatar from "../../public/images/zp.png";
-import blogBg from '../../public/images/compute.png'
-import productionBg from '../../public/images/production.png'
-import messageBg from '../../public/images/message.png'
-import linkBg from '../../public/images/link.png'
-import timelineBg from '../../public/images/timeline.png'
-import jokeBg from '../../public/images/joke.png'
+import blogBg from '../../public/images/compute.jpg'
+import productionBg from '../../public/images/production.jpg'
+import messageBg from '../../public/images/message.jpg'
+import linkBg from '../../public/images/link.jpg'
+import timelineBg from '../../public/images/timeline.jpg'
+import jokeBg from '../../public/images/joke.jpg'
 
 import { getNewsList } from "../../server/homeApi";
 

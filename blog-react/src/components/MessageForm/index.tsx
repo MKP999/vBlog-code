@@ -8,7 +8,6 @@ const index = (props: {handleSubmit: Function, type: String, loading:boolean}) =
     const [ form ] = Form.useForm()
 
     const onFinish = (values: object):void => {
-        console.log(props.type)
         props.handleSubmit({...values, type: props.type, loading: props.loading})
         form.setFieldsValue({
             name: '',
@@ -18,7 +17,6 @@ const index = (props: {handleSubmit: Function, type: String, loading:boolean}) =
     }
     
     const onFinishFailed = (errorInfo: object):void => {
-    console.log('Failed:', errorInfo);
     }
 
 

@@ -29,7 +29,6 @@ const index = () => {
     // 获取数据
     const getData = () => {
         getBlogrollList().then(res => {
-            console.log(res.data)
             const list1: [] = []
             const list2: [] = []
             res.data.data.forEach((item: {type: number}) => {
@@ -79,7 +78,6 @@ const index = () => {
 
       // 点击确认添加
       const onFinish = (values: object) => {
-        console.log(values)
         setLoading(true)
         addBlogroll(values).then(res => {
             setVisible(false);
@@ -95,7 +93,6 @@ const index = () => {
 
     // 点击进入该网站
     const enterUrl = (url:string) => {
-        console.log(url)
         window.open(url)
     }
 

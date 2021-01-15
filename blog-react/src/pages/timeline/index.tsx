@@ -24,7 +24,6 @@ const index = () => {
     // 获取数据
     const getData = () => {
         getTimelineList().then(res => {
-            console.log(res.data)
             setTimeData(res.data.data)
         })
     }
@@ -38,7 +37,6 @@ const index = () => {
 
       // 点击确认添加
       const onFinish = (values: object) => {
-        console.log(values)
         setLoading(true)
         addTimeline(values).then(res => {
             setVisible(false);

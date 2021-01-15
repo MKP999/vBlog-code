@@ -33,7 +33,6 @@ const index = (props: { children: React.ReactNode }) => {
 
       // 退出登录
 
-    console.log('location => ', location)
     // 匹配路径
     // const matchUrl = (url) => {
     //     const 
@@ -93,7 +92,7 @@ const index = (props: { children: React.ReactNode }) => {
                 <Content className="content-warpper">
                     {props.children}
                 </Content>
-            <Footer style={{ textAlign: 'center', background: '#001529', color: '#fff' }}>Ant Design ©2020 Created by MKP</Footer>
+            <Footer style={{ textAlign: 'center', background: '#001529', color: '#fff' }}>Copyright ©2020 MKP All Rights Reserved.</Footer>
         </Layout>
     )
 }

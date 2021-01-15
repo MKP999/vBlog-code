@@ -48,7 +48,6 @@ const index = () => {
         const id = location.query.id
         setRequest(true)
         getArticle({id}).then(res => {
-            console.log(res.data)
             setBlogInfo(res.data.data)
             if (blog_Info) {
                 const checkLike = res.data.data.like.filter((item: {user: string}) => {
@@ -68,7 +67,6 @@ const index = () => {
 
     // 编辑
     const handleUpdate = (id: string) => {
-        console.log(id)
         history.push(`/blog/edite?id=${id}`)
     }
 
@@ -83,7 +81,6 @@ const index = () => {
         clearTimeout(timer)
         timer = setTimeout(() => {
             setLoading(true)
-            console.log(e)
             addArticleComment({id: blogInfo._id}, e).then(res => {
                 clearTimeout(timer)
                 getData()

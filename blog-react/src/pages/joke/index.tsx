@@ -20,7 +20,6 @@ const index = () => {
             count: 1
         }
         getJoke(params).then((res:{data: {data: { result: [{type: string, text: string, images: any, video:any}]}}}) => {
-            console.log(res.data)
             setJoke(res.data.data.result[0])
         }).catch(err => {
             console.log(err)
