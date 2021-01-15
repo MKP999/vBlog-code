@@ -1,9 +1,18 @@
 import axios from 'axios'
 import { getStorageFn } from "../util/storageFn"
+console.log(process.env.NODE_ENV)
+let baseURL = ''
+if (process.env.NODE_ENV === 'development') {
+  // 测试 开发环境
+  baseURL = 'http://localhost:5000/api'
+} else if (process.env.NODE_ENV === 'production') {
+  // 线上 生产环境
+  baseURL = 'http://8.129.105.136/api'
+}
 
 // create an axios instance
 const service = axios.create({
-  baseURL: 'http://localhost:5000/api', // url = base url + request url
+  baseURL, // url = base url + request url 线上
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 15000 // request timeout
 })
