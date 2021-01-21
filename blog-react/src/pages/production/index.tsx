@@ -2,12 +2,12 @@ import React from 'react'
 import { Row, Col, Card, Divider } from 'antd'
 import './index.scss'
 import PageWrapper from "../../components/PageWrapper"
-import bollUrl from '../../public/images/canvasBoll.png'
-import planeUrl from '../../public/images/jsplane.png'
-import musicUrl from '../../public/images/kgmusic.png'
-import readUrl from '../../public/images/reading.png'
-import shopUrl from '../../public/images/uni-app-shopping.png'
-import movieUrl from '../../public/images/wc-movie.png'
+import bollUrl from '../../public/images/canvasBoll.jpg'
+import planeUrl from '../../public/images/jsplane.jpg'
+import musicUrl from '../../public/images/kgmusic.jpg'
+import readUrl from '../../public/images/reading.jpg'
+import shopUrl from '../../public/images/uni-app-shopping.jpg'
+import movieUrl from '../../public/images/wc-movie.jpg'
 
 const index = () => {
     const { Meta } = Card;

@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === 'development') {
 const service = axios.create({
   baseURL, // url = base url + request url 线上
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 15000 // request timeout
+  timeout: 30000 // request timeout
 })
 
 // request interceptor

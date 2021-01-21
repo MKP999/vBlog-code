@@ -21,7 +21,7 @@ const app = new koa()
 app.use(static('client/dist'))
 
 // 引入MongoDB url
-const db = require('./blog-api/config/config').mongoURL
+const db = require('./config/config').mongoURL
 // 连接MongoDB数据库
 // 连接数据库
 mongoose.connect(db,
@@ -58,18 +58,18 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // 回调到config文件中 passport.js
-require('./blog-api/config/passport')(passport);
+require('./config/passport')(passport);
 
 // 全局配置
-const config = require('./blog-api/config/config')
+const config = require('./config/config')
 
 // 引入路由
-const user = require('./blog-api/routes/user')
-const article = require('./blog-api/routes/article')
-const message = require('./blog-api/routes/message')
-const entertainment = require('./blog-api/routes/entertainment')
-const timeline = require('./blog-api/routes/timeline')
-const blogroll = require('./blog-api/routes/blogroll')
+const user = require('./routes/user')
+const article = require('./routes/article')
+const message = require('./routes/message')
+const entertainment = require('./routes/entertainment')
+const timeline = require('./routes/timeline')
+const blogroll = require('./routes/blogroll')
 
 
 // 配置路由根路径

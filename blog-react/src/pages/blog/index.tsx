@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col, BackTop, List, Avatar, Space, Input, Button, Skeleton, message, Modal, Form } from 'antd';
 import { UpCircleOutlined, FolderOpenOutlined, MessageOutlined, LikeOutlined, ClockCircleOutlined, PlusCircleOutlined  } from '@ant-design/icons';
-import avatar from "../../public/images/zp.png";
+import avatar from "../../public/images/zp.jpg";
 import { history, Link } from 'umi'
 import { timestampToTime } from "../../util/time";
 import { getArticlesList, getArticlesData, getSearch, deleteArticle } from "../../server/blogApi";

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Col, Row, Divider, Button, message, Form, Input, Spin, Space, BackTop, Tag, Skeleton } from 'antd';
-import { LikeOutlined, MessageOutlined, ClockCircleOutlined, FolderOpenOutlined, UpCircleOutlined, VerifiedOutlined } from '@ant-design/icons';
+import { Col, Row, Divider, Button, message, Form, Input, Space, BackTop, Tag, Skeleton } from 'antd';
+import { LikeOutlined, MessageOutlined, ClockCircleOutlined, FolderOpenOutlined, UpCircleOutlined, VerifiedOutlined, LeftOutlined } from '@ant-design/icons';
 import { useHistory, Link, history } from "umi";
 import './index.scss'
 import { timestampToTime } from "../../util/time";
@@ -117,6 +117,9 @@ const index = () => {
 
     return (
         <div style={{minHeight: 'calc(100vh - 114px)', height: '100%'}}>
+            <Button className="nav-back" shape="round" icon={<LeftOutlined />} size="large" onClick={() => history.goBack()}>
+                返回
+            </Button>
              <Row>
                 <Col span={16} offset={4} >
                     <div className="blog-detail">
