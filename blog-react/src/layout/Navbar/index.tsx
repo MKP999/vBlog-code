@@ -5,7 +5,7 @@ import { HomeOutlined, UnorderedListOutlined, PlayCircleOutlined, CalendarOutlin
 import { Link, useHistory, history } from 'umi'
 import './index.scss'
 import { getStorageFn, removeStorageFn } from "../../util/storageFn";
-import logo from "../../../public/static/Ckp.png";
+import logo from "../../../public/static/Ckp.jpg";
 
 const index = (props: { children: React.ReactNode }) => {
     const { location } = useHistory()

@@ -13,3 +13,10 @@
 .ant-modal-footer {
   display: none;
 } 
+
+.ant-card-meta-description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}

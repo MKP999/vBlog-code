@@ -12,7 +12,7 @@ const { authorize } = require('../middleware/auth')
 router
     .get('/test', Test)
     .get('/all', GetBlogroll)
-    .post('/add',  passport.authenticate('jwt', { session: false }), AddBlogroll)
+    .post('/add', AddBlogroll)
     .put('/update',  passport.authenticate('jwt', { session: false }), authorize('admin'), UpdateType)
 
 module.exports = router.routes()

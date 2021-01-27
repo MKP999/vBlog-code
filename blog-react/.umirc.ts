@@ -22,7 +22,7 @@ export default defineConfig({
         {
           path: '/home',
           component: '@/pages/home/index',
-          title: '首页'
+          title: 'K.P - 技术配毒鸡汤'
         },
         {
           path: '/blog',
@@ -90,7 +90,7 @@ export default defineConfig({
     mode: 'emit',
   },
   links: [
-    {rel: 'icon', href: './static/Ckp.png'}
+    {rel: 'icon', href: './static/Ckp.jpg'}
   ],
   dynamicImport: {
     loading: '@/Loading',

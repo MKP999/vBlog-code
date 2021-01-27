@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Skeleton, Card, Avatar, Col, Row, Divider, Button, Popconfirm, message, Modal, Form, Input, Spin } from 'antd';
 import PageWrapper from "../../components/PageWrapper"
-import { PlusCircleOutlined, BankOutlined, HeatMapOutlined, BranchesOutlined, FileTextOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined, BankOutlined, HeatMapOutlined, BranchesOutlined, FileTextOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 
 import './index.scss'
 import { getStorageFn } from "../../util/storageFn"
@@ -71,8 +71,11 @@ const index = () => {
 
       // 打开添加友链弹窗
       const handleClick = () => {
-        if (role === 'admin') {
+          // 没有登录 无法点赞
+        if (blog_Info) {
             setVisible(true)
+        } else {
+            message.error('请您先登录下，方便联系到您')
         }
       }
 
@@ -147,6 +150,11 @@ const index = () => {
                     </Form.Item>
 
                     </Form>
+                    <p style={{fontSize: '12px', color: '#333'}}> 
+                    <ExclamationCircleOutlined  style={{color: 'red'}} />  温馨提示: <br/>
+                            在申请本站友链之前请确保已将本站加入友链。<br/>
+                            本站优先录入同类原创、技术生活类博客。任何包含违法国家法律或不健康内容站点均不录入。
+                    </p>
                 </Modal>
             <PageWrapper>
                 <Divider style={{color: '#fff', borderColor: '#fff', fontSize: '18px'}}>友情链接</Divider>

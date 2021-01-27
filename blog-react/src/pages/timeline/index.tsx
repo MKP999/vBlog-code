@@ -109,7 +109,7 @@ const index = () => {
                                         <div className="title">{item.title}</div> 
                                         <span style={{color: '#ccc', float: 'right'}}>{timestampToTime(new Date(item.date).getTime())}</span>
                                         <Divider />
-                                        <p style={{textIndent: '2em', fontFamily: 'inherit', fontSize: '16px'}}>{item.content}</p>
+                                        <p style={{textIndent: '2em', fontFamily: 'inherit', fontSize: '16px', textAlign: 'left'}}>{item.content}</p>
                                     </div>
                                 </Timeline.Item>
                             )
