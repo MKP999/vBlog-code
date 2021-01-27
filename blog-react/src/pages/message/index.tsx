@@ -138,7 +138,7 @@ const index = () => {
       };
 
     return (
-        <div style={{minHeight: 'calc(100vh - 114px)', height: '100%', padding: '10px 0'}}>
+        <div style={{minHeight: 'calc(100vh - 144px)', height: '100%', padding: '10px 0'}}>
             <Row>
                 <Col span={16} offset={4} style={{borderRadius: '10px' }}>
                 {/* 评论区 */}

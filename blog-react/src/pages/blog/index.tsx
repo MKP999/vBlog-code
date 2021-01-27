@@ -136,7 +136,7 @@ const index = () => {
      }
 
     return (
-        <div style={{minHeight: 'calc(100vh - 114px)', height: '100%'}}>
+        <div style={{minHeight: 'calc(100vh - 144px)', height: '100%'}}>
             <div style={{padding: '15px 0', position: 'relative'}}>
             {role === 'admin' &&  
             <Button className="create-center" shape="round" icon={<PlusCircleOutlined />} size="large" onClick={() => handleClick()}>

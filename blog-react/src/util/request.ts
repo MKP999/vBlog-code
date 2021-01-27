@@ -4,10 +4,11 @@ console.log(process.env.NODE_ENV)
 let baseURL = ''
 if (process.env.NODE_ENV === 'development') {
   // 测试 开发环境
-  baseURL = 'http://localhost:5000/api'
+  baseURL = 'http://www.fsakp.top/api'
 } else if (process.env.NODE_ENV === 'production') {
-  // 线上 生产环境
-  baseURL = 'http://8.129.105.136/api'
+  // 线上 生产环境 
+  // baseURL = 'http://8.129.105.136/api'
+  baseURL = 'http://www.fsakp.top/api'
 }
 
 // create an axios instance

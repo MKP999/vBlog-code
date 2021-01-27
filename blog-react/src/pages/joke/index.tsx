@@ -31,7 +31,7 @@ const index = () => {
     }
 
     return (
-        <div style={{ minHeight: 'calc(100vh - 114px)', height: '100%'}}>
+        <div style={{ minHeight: 'calc(100vh - 144px)', height: '100%'}}>
             <Button className="create-center" shape="round" icon={<InteractionOutlined />} size="large" onClick={() => handleClick()}>
                 再来一条
             </Button>

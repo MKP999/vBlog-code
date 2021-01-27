@@ -116,7 +116,7 @@ const index = () => {
     
 
     return (
-        <div style={{minHeight: 'calc(100vh - 114px)', height: '100%'}}>
+        <div style={{minHeight: 'calc(100vh - 144px)', height: '100%'}}>
             <Button className="nav-back" shape="round" icon={<LeftOutlined />} size="large" onClick={() => history.goBack()}>
                 返回
             </Button>

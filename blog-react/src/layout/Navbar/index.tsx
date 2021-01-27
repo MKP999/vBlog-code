@@ -92,7 +92,10 @@ const index = (props: { children: React.ReactNode }) => {
                 <Content className="content-warpper">
                     {props.children}
                 </Content>
-            <Footer style={{ textAlign: 'center', background: '#001529', color: '#fff' }}>Copyright ©2020 MKP All Rights Reserved.</Footer>
+            <Footer style={{ textAlign: 'center', background: '#001529', color: '#fff' }}>
+                Copyright ©2020 <a target="_blank" href="www.fsakp.top" style={{color:'#fff'}}>www.fsakp.top</a> All Rights Reserved. <br/>
+                <img src="http://www.beian.gov.cn/img/new/gongan.png" alt=""/> 备案号 : <a target="_blank" href="https://beian.miit.gov.cn">粤ICP备2021011159号-1 </a> 
+            </Footer>
         </Layout>
     )
 }

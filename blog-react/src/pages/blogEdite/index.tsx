@@ -31,13 +31,13 @@ const index = () => {
           setContent(newHtml)
         }
         // 设置编辑区域高度为 1000px
-        editor.config.height = 700
+        editor.config.height = 650
         // 挂载highlight插件
         editor.highlight = hljs
         // 过滤掉复制文本的样式
         editor.config.pasteFilterStyle = false
         // 忽略粘贴的图片
-        editor.config.pasteIgnoreImg = true
+        // editor.config.pasteIgnoreImg = true
         /**一定要创建 */
         editor.create()
         
@@ -147,7 +147,7 @@ const index = () => {
 
 
     return (
-        <div style={{minHeight: 'calc(100vh - 114px)', height: '100%', padding: '10px 0'}}>
+        <div style={{minHeight: 'calc(100vh - 144px)', height: '100%', padding: '10px 0'}}>
             { showPrompt && <Prompt message="系统可能不会保存您所做的更改。确定要离开吗？" /> }
             <Row>
                 <Col span={22} offset={1}>
