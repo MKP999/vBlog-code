@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Skeleton, Card, Avatar, Col, Row, Divider, Button, Popconfirm, message, Modal, Form, Input, Spin } from 'antd';
 import PageWrapper from "../../components/PageWrapper"
-import { PlusCircleOutlined, BankOutlined, HeatMapOutlined, BranchesOutlined, FileTextOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined, BankOutlined, HeatMapOutlined, BranchesOutlined, FileTextOutlined, ExclamationCircleOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 
 import './index.scss'
 import { getStorageFn } from "../../util/storageFn"
@@ -21,6 +21,7 @@ const index = () => {
     const [ checklist, setCheckList ] = useState([])
 
     const [visible, setVisible] = useState(false)
+    const [ form ] = Form.useForm()
 
     useEffect(() => {
         getData()
@@ -85,6 +86,13 @@ const index = () => {
         addBlogroll(values).then(res => {
             setVisible(false);
             setLoading(false);
+            // 设置提交后 表单清空
+            form.setFieldsValue({
+                title: '',
+                avatar: '',
+                url: '',
+                describe: ''
+            })
             getData()
         })
       }
@@ -114,6 +122,7 @@ const index = () => {
                     maskClosable={false}
                 >
                     <Form
+                        form={form}
                         name="normal_login"
                         className="login-form"
                         initialValues={{ remember: true }}
@@ -126,16 +135,16 @@ const index = () => {
                             <Input prefix={<BankOutlined className="site-form-item-icon" />} maxLength={50} placeholder="网站名" />
                         </Form.Item>
                         <Form.Item
-                            name="avatar"
-                            rules={[{ required: true, message: '请输入网站logo！' }]}
-                        >
-                            <Input prefix={<HeatMapOutlined className="site-form-item-icon" />} placeholder="LOGO" />
-                        </Form.Item>
-                        <Form.Item
                             name="url"
                             rules={[{ required: true, message: '请输入网站地址！' }]}
                         >
                             <Input prefix={<BranchesOutlined className="site-form-item-icon" />} placeholder="网站地址" />
+                        </Form.Item>
+                        <Form.Item
+                            name="avatar"
+                            rules={[{ required: true, message: '请输入网站logo！' }]}
+                        >
+                            <Input prefix={<HeatMapOutlined className="site-form-item-icon" />} placeholder="LOGO/ICON" />
                         </Form.Item>
                         <Form.Item
                             name="describe"
@@ -156,6 +165,30 @@ const index = () => {
                             本站优先录入同类原创、技术生活类博客。任何包含违法国家法律或不健康内容站点均不录入。
                     </p>
                 </Modal>
+            <PageWrapper>
+                <Divider style={{color: '#fff', borderColor: '#fff', fontSize: '18px'}}>友链要求</Divider>
+                <p style={{color: '#fff', padding: '10px 30px'}}>
+                    <span className="require" style={{color: 'green'}}><CheckOutlined /> 原创优先 </span> 
+                    <span className="require" style={{color: 'green'}}><CheckOutlined /> 技术优先 </span> 
+                    <span className="require" style={{color: 'red'}}><CloseOutlined /> 经常宕机 </span> 
+                    <span className="require" style={{color: 'red'}}><CloseOutlined /> 不合法规 </span> 
+                    <span className="require" style={{color: 'red'}}><CloseOutlined /> 擦边球站 </span> 
+                    <span className="require" style={{color: 'red'}}><CloseOutlined /> 红标报毒 </span> 
+                    <br/>    
+                    <br/>
+                    本站信息如下：<br/>
+
+                    名称：K.P个人技术站 <br/>
+
+                    网址：<a target="_blank" href="http://www.fsakp.top" style={{color:'#fff'}}>http://www.fsakp.top</a> <br/>
+
+                    图标：http://www.fsakp.top/static/Ckp.jpg <br/>
+
+                    描述： 一名依靠毒鸡汤, 每天激情热血的程序员博客 <br/>
+
+                    <span style={{color: 'red'}}>注意：如需交换链接可在留言版留言，留言格式如本站信息，或自行添加，本站会不定时清理违规友链。</span> 
+                </p>
+            </PageWrapper>
             <PageWrapper>
                 <Divider style={{color: '#fff', borderColor: '#fff', fontSize: '18px'}}>友情链接</Divider>
                 {list.length === 0 ? <div className="loading-box"><Spin size="large" /></div> : 
