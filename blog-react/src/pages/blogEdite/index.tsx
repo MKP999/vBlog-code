@@ -36,8 +36,21 @@ const index = () => {
         editor.highlight = hljs
         // 过滤掉复制文本的样式
         editor.config.pasteFilterStyle = false
-        // 忽略粘贴的图片
-        // editor.config.pasteIgnoreImg = true
+        //开启debug调试
+        editor.config.debug = true
+        // 配置 server 接口地址
+        // editor.config.uploadImgServer = 'http://localhost:3000/upload-single-file'
+        // 无需配置图片上传到服务器 只需要配置使用与base64便可以
+        editor.config.uploadImgShowBase64 = true
+        //配置文件参数名（这个参数必需配置，后台用这个值接收图片）
+        editor.config.uploadFileName = 'mypic'
+        //隐藏网络图片tab
+        editor.config.showLinkImg = false
+        //设置上传图片的header
+        editor.config.uploadImgHeaders = {
+            'Enctype':'multipart/form-data'
+        }
+
         /**一定要创建 */
         editor.create()
         

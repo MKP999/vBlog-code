@@ -100,14 +100,14 @@ const index = () => {
             clearTimeout(timer)
             timer = setTimeout(() => {
                 getLike({id: blogInfo._id}).then(res => {
-                    if (liked) {
-                        setLikeText('点赞')
-                    } else {
-                        setLikeText('已赞')
-                    }
-                    setLiked(!liked)
                     clearTimeout(timer)
                 })
+                if (liked) {
+                    setLikeText('点赞')
+                } else {
+                    setLikeText('已赞')
+                }
+                setLiked(!liked)
             }, 300);
         } else {
             message.error('您需要登录后才点赞。')
