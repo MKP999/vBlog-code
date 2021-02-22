@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, BackTop, List, Avatar, Space, Input, Button, Skeleton, message, Modal, Form } from 'antd';
+import { Row, Col, BackTop, List, Avatar, Space, Input, Button, Skeleton, message, Modal, Form, Pagination } from 'antd';
 import { UpCircleOutlined, FolderOpenOutlined, MessageOutlined, LikeOutlined, ClockCircleOutlined, PlusCircleOutlined  } from '@ant-design/icons';
 import avatar from "../../public/images/zp.jpg";
 import { history, Link } from 'umi'
@@ -17,16 +17,18 @@ const index = () => {
     const [ loading, setLoading ] = useState(false)
     const [ visible, setVisible ] = useState(false)
     const [ deleteId, setdeleteId ] = useState('')
+    const [ page, setPage ] = useState(1)
     
     const blog_Info:{role:string} = getStorageFn('blog_Info')
     const role:string = blog_Info ? blog_Info.role : ''
 
     useEffect(() => {
-        getData()
+        getData(1)
     }, [])
-    const getData = () => {
+    const getData = (page: number) => {
         setLoading(true)
-        getArticlesList({ page: 1, limit: 10}).then(res => {
+        setPage(page)
+        getArticlesList({ page, limit: 10}).then(res => {
             res.data.data.forEach((item: {avatar: string}) => {
                 item.avatar = 'http://q1.qlogo.cn/g?b=qq&nk=993646298&s=100'
             })
@@ -60,6 +62,11 @@ const index = () => {
             setTypeList(list)
         })
     }
+
+    // 跳转页面
+    const onChange = (page:number)=> {
+        getData(page)
+      }
 
 
     const IconText = (item: { icon: any, text: any }) => (
@@ -105,7 +112,7 @@ const index = () => {
             if (res.data.success) {
                 message.success('删除成功')
                 setVisible(false)
-                getData()
+                getData(1)
                 getTypeData()
             } else {
                 message.error('删除失败，请重试!')
@@ -194,12 +201,14 @@ const index = () => {
                                     <List
                                         itemLayout="vertical"
                                         size="large"
-                                        pagination={{
-                                        onChange: page => {
-                                            console.log(page);
-                                        },
-                                        pageSize: 10,
-                                        }}
+                                        // pagination={{
+                                        // onChange: page => {
+                                        //     console.log(page);
+                                        //     getData(page)
+                                        // },
+                                        // pageSize: 10,
+                                        // total: 20
+                                        // }}
                                         dataSource={listData}
                                         footer={
                                         <div></div>
@@ -237,6 +246,7 @@ const index = () => {
                                         )}
                                     />
                                 )}
+                                    <Pagination current={page} total={data.total} onChange={onChange} style={{textAlign: 'right', marginTop: '10px'}} />
                                 </div>
                             </Col>
                         </Row>
